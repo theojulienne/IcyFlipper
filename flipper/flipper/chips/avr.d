@@ -1,13 +1,13 @@
-module icyprog.chips.avr;
+module flipper.chips.avr;
 
 import std.compat;
 import std.stdio;
 
 import tango.core.Thread;
 
-import icyprog.board;
-import icyprog.chip;
-import icyprog.protocols.jtag;
+import flipper.board;
+import flipper.chip;
+import flipper.protocols.jtag;
 
 class AVRChip : Chip {
 	bool _avrReset = false;

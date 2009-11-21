@@ -1,4 +1,4 @@
-module icyprog.main;
+module flipper.main;
 
 import std.compat;
 import std.stdio;
@@ -9,14 +9,14 @@ import tango.io.device.File;
 import tango.io.device.Conduit;
 import tango.util.ArgParser;
 
-import icyprog.protocols.jtag;
-import icyprog.debuginterface;
-import icyprog.interfaces.penguinoavr;
-import icyprog.flash.avrflash;
+import flipper.protocols.jtag;
+import flipper.debuginterface;
+import flipper.interfaces.penguinoavr;
+import flipper.flash.avrflash;
 
-import icyprog.chip;
-import icyprog.board;
-import icyprog.memory;
+import flipper.chip;
+import flipper.board;
+import flipper.memory;
 
 bool startswith( string haystack, string needle ) {
 	return ( haystack[0..needle.length] == needle );
@@ -63,7 +63,7 @@ int main( string[] argv ) {
 	board.showInformation( );
 	
 	foreach ( uploadTarget, uploadFilename; uploadTargets ) {
-		icyprog.memory.Memory targetMemory = chip.getMemory( uploadTarget );
+		flipper.memory.Memory targetMemory = chip.getMemory( uploadTarget );
 		
 		Stdout.format( "" ).newline;
 		Stdout.format( "Target name: {0}", uploadTarget ).newline;

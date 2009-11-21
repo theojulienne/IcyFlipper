@@ -1,4 +1,4 @@
-module icyprog.protocols.jtag;
+module flipper.protocols.jtag;
 
 import std.compat;
 import std.string;

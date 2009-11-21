@@ -1,8 +1,8 @@
-module icyprog.flash.base;
+module flipper.flash.base;
 
-import icyprog.board;
-import icyprog.chip;
-import icyprog.memory;
+import flipper.board;
+import flipper.chip;
+import flipper.memory;
 
 class Flash : Memory {
 	this( Chip c ) {

@@ -1,4 +1,4 @@
-module icyprog.board;
+module flipper.board;
 
 import std.compat;
 import std.string;
@@ -6,10 +6,10 @@ import std.stdio;
 
 import tango.util.container.LinkedList;
 
-import icyprog.debuginterface;
-import icyprog.interfaces.penguinoavr;
-import icyprog.protocols.jtag;
-import icyprog.chip;
+import flipper.debuginterface;
+import flipper.interfaces.penguinoavr;
+import flipper.protocols.jtag;
+import flipper.chip;
 
 class Board {
 	static LinkedList!(Board) boards;

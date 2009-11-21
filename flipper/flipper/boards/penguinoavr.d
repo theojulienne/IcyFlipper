@@ -1,15 +1,15 @@
-module icyprog.boards.penguinoavr;
+module flipper.boards.penguinoavr;
 
 import std.compat;
 import std.stdio;
 
 import tango.io.Stdout;
 
-import icyprog.debuginterface;
-import icyprog.board;
-import icyprog.protocols.jtag;
-import icyprog.chips.avr;
-import icyprog.flash.avrflash;
+import flipper.debuginterface;
+import flipper.board;
+import flipper.protocols.jtag;
+import flipper.chips.avr;
+import flipper.flash.avrflash;
 
 class PenguinoAVRBoard : Board {
 	this( DebugInterface iface ) {

@@ -1,9 +1,9 @@
-module icyprog.chip;
+module flipper.chip;
 
 import std.compat : string;
 
-import icyprog.board;
-import icyprog.memory;
+import flipper.board;
+import flipper.memory;
 
 class Chip {
 	Board board;

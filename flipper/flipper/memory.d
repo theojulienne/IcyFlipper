@@ -1,4 +1,4 @@
-module icyprog.memory;
+module flipper.memory;
 
 import tango.io.device.File;
 import tango.io.device.Conduit;
@@ -6,8 +6,8 @@ import tango.io.stream.Buffered;
 
 import std.stdio;
 
-import icyprog.board;
-import icyprog.chip;
+import flipper.board;
+import flipper.chip;
 
 class Memory {
 	public uint memoryBytes = 0; // in bytes

@@ -1,11 +1,11 @@
-module icyprog.debuginterface;
+module flipper.debuginterface;
 
 import std.compat;
 
 import tango.util.container.LinkedList;
 
-import icyprog.flash.base;
-import icyprog.board;
+import flipper.flash.base;
+import flipper.board;
 
 class DebugInterface {
 	static DebugInterface[Object] interfaces;

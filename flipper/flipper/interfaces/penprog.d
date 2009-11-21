@@ -1,4 +1,4 @@
-module icyprog.interfaces.penprog;
+module flipper.interfaces.penprog;
 
 import std.compat;
 import std.stdio;
@@ -7,8 +7,8 @@ import tango.io.Stdout;
 
 import usb.all;
 
-import icyprog.protocols.jtag;
-import icyprog.debuginterface;
+import flipper.protocols.jtag;
+import flipper.debuginterface;
 
 class PenprogInterface : DebugInterface, IJTAG {
 	const byte jtagCommandGetBoard = 0x01;

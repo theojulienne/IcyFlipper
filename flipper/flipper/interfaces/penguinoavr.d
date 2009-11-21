@@ -1,10 +1,10 @@
-module icyprog.interfaces.penguinoavr;
+module flipper.interfaces.penguinoavr;
 
 import std.compat;
 
-import icyprog.interfaces.penprog;
-import icyprog.board;
-import icyprog.boards.penguinoavr;
+import flipper.interfaces.penprog;
+import flipper.board;
+import flipper.boards.penguinoavr;
 
 class PenguinoAVRInterface : PenprogInterface {
 	const uint USBVendorId = 0x16D0;

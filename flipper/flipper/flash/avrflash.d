@@ -1,14 +1,14 @@
-module icyprog.flash.avrflash;
+module flipper.flash.avrflash;
 
 import std.compat;
 import std.stdio;
 
 import tango.core.Thread;
 
-import icyprog.board;
-import icyprog.chips.avr;
-import icyprog.flash.base;
-import icyprog.protocols.jtag;
+import flipper.board;
+import flipper.chips.avr;
+import flipper.flash.base;
+import flipper.protocols.jtag;
 
 class AVRFlash : Flash {
 	TAPStateMachine tapState;
