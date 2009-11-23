@@ -55,7 +55,7 @@ int main( string[] argv ) {
 	}
 	
 	writefln( "Boards: %s", Board.boards.size );
-	assert( Board.boards.size > 0 );
+	assert( Board.boards.size > 0, "No boards found" );
 	writefln( "Assuming first board..." );
 	Board board = Board.boards.get( 0 );
 	Chip chip = board.chips["user"]; // FIXME: assuming "user" chip
