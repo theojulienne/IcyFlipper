@@ -30,6 +30,10 @@ class FlipperApp : Application {
 		deviceTree = new TreeView( );
 		splitView.addSubview( deviceTree );
 		
+		auto col = new TableColumn( "Device Tree" );
+		deviceTree.addTableColumn( col );
+		deviceTree.outlineTableColumn = col;
+		
 		// add a frame to the right of the splitview
 		deviceFrame = new Frame( "Device Information" );
 		splitView.addSubview( deviceFrame );
