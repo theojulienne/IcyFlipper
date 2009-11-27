@@ -1,7 +1,11 @@
 module flipper.ui;
 
+import usb.all;
+
 import chisel.core.all;
 import chisel.ui.all;
+
+import tango.io.Stdout;
 
 class FlipperApp : Application {
 	Window mainWindow;
@@ -47,16 +51,36 @@ class FlipperApp : Application {
 		// attach window closer handler and make visible
 		mainWindow.onClose += &onWindowClose;
 		mainWindow.show( );
+		
+		this.useIdleTask = true;
 	}
 	
 	void onWindowClose( ) {
 		stop( );
 	}
+	
+	void idleTask( ) {
+		USB.findUSBBusses( );
+		int devChange = USB.findDevices( );
+		if ( devChange != 0 ) {
+			Stdout.formatln( "USB change: {} devices", devChange );
+		}
+	}
 }
 
 int main( char[][] argv ) {
-	auto app = new FlipperApp( );
+	
+	ClassInfo inf = FlipperApp.classinfo;
+	
+	FlipperApp app = cast(FlipperApp)inf.create( );
 	app.run( );
+	
+	//Stdout.formatln( "Classinfo: {}",  );
+	
+	return 0;
+	
+	//auto app = new FlipperApp( );
+	//app.run( );
 	
 	return 0;
 }
