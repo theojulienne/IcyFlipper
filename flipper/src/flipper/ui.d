@@ -35,9 +35,13 @@ class FlipperApp : Application {
 		stackView.padding = 16;
 		
 		// add a treeview to the left of the splitview
-		deviceTree = new TreeView( Rect( 0, 0, DeviceTreeDefaultWidth, 100 ) );
+		auto deviceTreeFrame = new Frame( "Devices" );
+		deviceTreeFrame.border = false;
+		deviceTree = new TreeView( );
 		deviceTree.dataSource = new DeviceManagerDataSource( );
-		stackView.addSubview( deviceTree );
+		deviceTreeFrame.contentView = deviceTree;
+		stackView.addSubview( deviceTreeFrame );
+		stackView.setSize( deviceTreeFrame, DeviceTreeDefaultWidth );
 		
 		auto col = new TableColumn( "Devices" );
 		deviceTree.addTableColumn( col );
@@ -45,7 +49,6 @@ class FlipperApp : Application {
 		
 		// add a frame to the right of the splitview
 		deviceFrame = new Frame( "Device Information" );
-		deviceFrame.frame = Rect( 0, 0, 100, 100 );
 		stackView.addSubview( deviceFrame );
 		
 		// attach the splitter as the contentView for the window
