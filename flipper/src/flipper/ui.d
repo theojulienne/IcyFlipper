@@ -1,16 +1,19 @@
 module flipper.ui;
 
+import tango.io.Stdout;
+import tango.time.StopWatch;
+
 import usb.all;
 
 import chisel.core.all;
 import chisel.ui.all;
 
-import tango.io.Stdout;
+import flipper.devices.manager;
 
 class FlipperApp : Application {
 	Window mainWindow;
 	
-	SplitView splitView;
+	StackView stackView;
 	
 	TreeView deviceTree;
 	
@@ -28,43 +31,63 @@ class FlipperApp : Application {
 		mainWindow.setSize( WindowDefaultWidth, WindowDefaultHeight );
 		
 		// create a splitter
-		splitView = new SplitView( SplitterStacking.Horizontal );
+		stackView = new StackView( StackDirection.Horizontal );
+		stackView.padding = 16;
 		
 		// add a treeview to the left of the splitview
-		deviceTree = new TreeView( );
-		splitView.addSubview( deviceTree );
+		deviceTree = new TreeView( Rect( 0, 0, DeviceTreeDefaultWidth, 100 ) );
+		deviceTree.dataSource = new DeviceManagerDataSource( );
+		stackView.addSubview( deviceTree );
 		
-		auto col = new TableColumn( "Device Tree" );
+		auto col = new TableColumn( "Devices" );
 		deviceTree.addTableColumn( col );
 		deviceTree.outlineTableColumn = col;
 		
 		// add a frame to the right of the splitview
 		deviceFrame = new Frame( "Device Information" );
-		splitView.addSubview( deviceFrame );
+		deviceFrame.frame = Rect( 0, 0, 100, 100 );
+		stackView.addSubview( deviceFrame );
 		
 		// attach the splitter as the contentView for the window
-		mainWindow.contentView = splitView;
+		mainWindow.contentView = stackView;
 		
 		// size the splitter's divider to a decent size for the tree
-		splitView.setDividerPosition( 0, DeviceTreeDefaultWidth );
+		//stackView.setDividerPosition( 0, DeviceTreeDefaultWidth );
+		stackView.setProportion( deviceFrame, 1 );
 		
 		// attach window closer handler and make visible
 		mainWindow.onClose += &onWindowClose;
 		mainWindow.show( );
 		
+		// enumerate all devices, then enable the 0.5s enumeration routine
+		doUSBEnumeration( );
 		this.useIdleTask = true;
+		lastEnumeration.start;
 	}
 	
 	void onWindowClose( ) {
 		stop( );
 	}
 	
+	StopWatch lastEnumeration;
+	const int EnumerationFrequencyUS = 5000000;
+	
 	void idleTask( ) {
+		if ( lastEnumeration.microsec > EnumerationFrequencyUS ) {
+			doUSBEnumeration( );
+		}
+	}
+	
+	void doUSBEnumeration( ) {
 		USB.findUSBBusses( );
 		int devChange = USB.findDevices( );
 		if ( devChange != 0 ) {
-			Stdout.formatln( "USB change: {} devices", devChange );
+			DeviceManager.enumerateUSBDevices( );
+			deviceTree.reloadData( );
 		}
+		
+		lastEnumeration.stop( );
+		lastEnumeration.start( );
 	}
 }
 
