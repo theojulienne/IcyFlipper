@@ -1,7 +1,6 @@
 module flipper.flash.base;
 
-import flipper.board;
-import flipper.chip;
+import flipper.chips.base;
 import flipper.memory;
 
 class Flash : Memory {

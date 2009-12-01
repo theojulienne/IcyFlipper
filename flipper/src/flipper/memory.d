@@ -6,8 +6,7 @@ import tango.io.stream.Buffered;
 
 import std.stdio;
 
-import flipper.board;
-import flipper.chip;
+import flipper.chips.base;
 
 class Memory {
 	public uint memoryBytes = 0; // in bytes

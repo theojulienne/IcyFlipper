@@ -1,10 +1,15 @@
 module flipper.devices.penguinoavr.device;
 
 import tango.io.Stdout;
+import tango.io.device.File;
+import tango.io.device.Conduit;
 
 import flipper.devices.device;
 import flipper.devices.manager;
 import flipper.protocols.jtag;
+import flipper.chips.avr;
+import flipper.flash.avrflash;
+import flipper.memory;
 
 import chisel.core.all;
 import chisel.ui.all;
@@ -35,6 +40,9 @@ class PenguinoAVRDevice : Device {
 	IJTAG ijtag;
 	TAPStateMachine sm;
 	
+	ProgressBar uploadProgress;
+	Label uploadStatus;
+	
 	this( ) {
 		Stdout.formatln( "Penguino AVR Device constructor" );
 	}
@@ -49,6 +57,17 @@ class PenguinoAVRDevice : Device {
 		Stdout.formatln( "Penguino AVR now has a USB device!" );
 		
 		assert( verifyParts( ), "Could not verify the chip on the attached Penguino AVR" );
+		
+		enumerateChips( );
+	}
+	
+	void enumerateChips( ) {
+		auto chip = new AVRChip( this.sm );
+		
+		// Penguino AVR contains an ATMega32A with 32KB flash
+		chip.addMemory( "flash", new AVRFlash( chip, 32*1024 ) );
+		
+		chips["user"] = chip;
 	}
 	
 	void createDevicePanel( ) {
@@ -69,6 +88,19 @@ class PenguinoAVRDevice : Device {
 		auto uploading = new Frame( "Device Upload" );
 		stackView.addSubview( uploading );
 		stackView.setProportion( uploading, 1 );
+		
+		auto progView = new StackView( StackDirection.Vertical );
+		progView.padding = 16;
+		auto uploadButton = new Button( "Upload" );
+		uploadButton.onPress += &uploadPrompt;
+		progView.addSubview( uploadButton );
+		uploadStatus = new Label( "Waiting for upload..." );
+		progView.addSubview( uploadStatus );
+		uploadProgress = new ProgressBar( ProgressBarType.Horizontal );
+		uploadProgress.indeterminate = false;
+		uploadProgress.value = 0;
+		progView.addSubview( uploadProgress );
+		uploading.contentView = progView;
 		
 		_devicePanel = stackView;
 	}
@@ -142,6 +174,103 @@ class PenguinoAVRDevice : Device {
 				writefln( "reset: sys=%s test=%s", _systemReset, _testReset );
 			}
 		}
+	}
+	
+	void uploadPrompt( ) {
+		FileOpenChooser chooser = new FileOpenChooser;
+		
+		chooser.onCompleted += &openDialogCompleted;
+		chooser.allowsMultipleSelection = false;
+		chooser.allowedFileTypes = [ "bin" ];
+		
+		chooser.beginModal( _devicePanel.window );
+	}
+	
+	void openDialogCompleted( Event e ) {
+		FileOpenChooser chooser = cast(FileOpenChooser)e.target;
+		
+		String[] paths = chooser.chosenPaths;
+		
+		if ( !chooser.fileWasChosen || chooser.chosenPaths.length == 0 ) {
+			return;
+		}
+		
+		String path = paths[0];
+		
+		version (Tango) {
+			Stdout.formatln( "Uploading: {}", path );
+		} else {
+			writefln( "Uploading: %s", path );
+		}
+		
+		auto uploadTarget = "flash";
+		
+		Memory targetMemory = chips["user"].getMemory( uploadTarget );
+		assert( targetMemory !is null );
+		
+		// AVR flashingness
+		
+		File file = new File( path.toString );
+		
+		if ( file is null )
+			return;
+		
+		int sourceBytes = file.length;
+		
+		//Stdout.newline;
+		//Stdout.format( "Erasing {0}...", uploadTarget ).newline;
+		uploadStatus.text = "Erawing " ~ uploadTarget ~ "...";
+		targetMemory.erase( );
+		
+		void reportOperationProgress( uint bytesCompleted ) {
+			if ( bytesCompleted > sourceBytes )
+				bytesCompleted = sourceBytes;
+			
+			uploadProgress.maxValue = sourceBytes;
+			uploadProgress.value = bytesCompleted;
+			
+			/*Stdout( "\r  [" );
+			
+			int progressLength = 65;
+			int bytesPerChunk = sourceBytes / progressLength;
+			
+			for ( int i = 0; i < progressLength; i++ ) {
+				
+				if ( bytesCompleted > i * bytesPerChunk ) {
+					Stdout( "#" );
+				} else {
+					Stdout( "." );
+				}
+				
+			}
+			
+			float progressPercent = 0;
+			
+			if ( sourceBytes > 0 ) {
+				progressPercent = (cast(float)bytesCompleted / cast(float)sourceBytes) * 100;
+			}
+			
+			Stdout.format( "] {0}%   ({1} of {2} bytes)", progressPercent, bytesCompleted, sourceBytes );
+			Stdout.flush;
+			//fflush( stdout );
+			*/
+		}
+		
+		//Stdout.newline.newline;
+		//Stdout.format( "Writing {0}...", uploadTarget ).newline;
+		//Stdout( " ~ starting ~ " );
+		uploadStatus.text = "Writing " ~ uploadTarget ~ "...";
+		targetMemory.writeStream( file, &reportOperationProgress );
+		
+		//Stdout.newline.newline;
+		//Stdout.format( "Verifying {0}...", uploadTarget ).newline;
+		//Stdout( " ~ starting ~ " );
+		uploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
+		targetMemory.verifyStream( file, &reportOperationProgress );
+		
+		uploadStatus.text = "Done!";
+		
+		targetMemory.finished( );
 	}
 }
 

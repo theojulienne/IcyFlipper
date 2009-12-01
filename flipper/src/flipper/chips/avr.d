@@ -5,20 +5,20 @@ import std.stdio;
 
 import tango.core.Thread;
 
-import flipper.board;
-import flipper.chip;
+import flipper.devices.device;
+import flipper.chips.base;
 import flipper.protocols.jtag;
 
 class AVRChip : Chip {
 	bool _avrReset = false;
 	bool _progEnable = false;
 	
-	this( Board b ) {
-		super( b );
+	this( TAPStateMachine sm ) {
+		super( sm );
 	}
 	
 	TAPStateMachine tapState( ) {
-		return board.sm;
+		return sm;
 	}
 	
 	public void avrReset( bool val ) {

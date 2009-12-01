@@ -5,7 +5,6 @@ import std.stdio;
 
 import tango.core.Thread;
 
-import flipper.board;
 import flipper.chips.avr;
 import flipper.flash.base;
 import flipper.protocols.jtag;
@@ -20,7 +19,7 @@ class AVRFlash : Flash {
 		
 		chip = c;
 		
-		tapState = chip.board.sm;
+		tapState = chip.tapState;
 		
 		this.memoryBytes = flashSize;
 		this.pageBytes = 128; // FIXME: always the same? 64 words, 128 bytes
