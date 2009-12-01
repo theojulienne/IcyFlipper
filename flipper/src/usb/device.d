@@ -1,9 +1,11 @@
 module usb.device;
 
-import std.compat;
-import std.string;
-
-import tango.stdc.stringz : fromStringz, toStringz;
+version (Tango) {
+	import tango.stdc.stringz : fromStringz, toStringz;
+	alias char[] string;
+} else {
+	import std.string;
+}
 
 import usb.libusb;
 import usb.descriptors;
