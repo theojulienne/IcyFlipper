@@ -34,9 +34,11 @@ class PenprogInterface : DebugInterface, IJTAG {
 	}
 	
 	~this( ) {
-	    writefln( "Releasing interface..." );
+		version (!Tango)
+	    	writefln( "Releasing interface..." );
 		_device.releaseInterface( jtagInterface );
-		writefln( "Penprog interface released." );
+		version (!Tango)
+			writefln( "Penprog interface released." );
 	}
 	
 	void device( USBDevice dev ) {
@@ -85,13 +87,17 @@ class PenprogInterface : DebugInterface, IJTAG {
 		bytes[2] = (testReset ? 1 : 0);
 		
 		while ( (ret = device.bulkWrite( jtagBulkOut, bytes )) != bytes.length ) {
-			writefln( "RST: USB Bulk Write failed (%s), retrying...", ret ); // loopies
+			version (Tango) {
+				writefln( "RST: USB Bulk Write failed (%s), retrying...", ret ); // loopies
+			}
 			
 			//System.Threading.Thread.Sleep( 100 );
 		}
 		
 		while ( (ret = device.bulkRead( jtagBulkIn, bytes )) != bytes.length ) {
-			writefln( "RST: USB Bulk Read failed (%s), retrying...", ret ); // loopies
+			version (Tango) {
+				writefln( "RST: USB Bulk Read failed (%s), retrying...", ret ); // loopies
+			}
 			
 			//System.Threading.Thread.Sleep( 100 );
 		}
@@ -140,14 +146,19 @@ class PenprogInterface : DebugInterface, IJTAG {
 		usbMsg[1] = numBits;
 		usbMsg[2..$] = outData.data;
 		while ( (ret = device.bulkWrite( jtagBulkOut, usbMsg )) != usbMsg.length ) {
-			writefln( "CHUNK: USB Bulk Write failed (%s), retrying...", ret ); // loopies
+			version (Tango) {
+				writefln( "CHUNK: USB Bulk Write failed (%s), retrying...", ret ); // loopies
+			}
 		}
 		
 		// read the response
 		ubyte[32] readBytes;
 		while ( (ret = device.bulkRead( jtagBulkIn, readBytes )) != readBytes.length ) {
-			writefln( "CHUNK: USB Bulk Read failed (%s), retrying...", ret ); // loopies
-			Stdout( "Error: " ~ device.getError( ) ).newline;
+			version (Tango) {
+				Stdout( "Error: " ~ device.getError( ) ).newline;
+			} else {
+				writefln( "CHUNK: USB Bulk Read failed (%s), retrying...", ret ); // loopies
+			}
 		}
 		
 		//writefln( "read = %s", readBytes[1] );

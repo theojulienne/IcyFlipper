@@ -29,6 +29,12 @@ class DeviceManager {
 	// current list of matched devices
 	static Device[USBDevice] matchedDevices = null;
 	
+	static void cleanup( ) {
+		foreach ( udev, dev; matchedDevices ) {
+			delete dev;
+		}
+	}
+	
 	static void addUSBDeviceMatch( DeviceManager.MatchUSB usbMatch ) {
 		usbDeviceMatches ~= usbMatch;
 	}

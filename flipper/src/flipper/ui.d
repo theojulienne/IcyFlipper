@@ -9,6 +9,7 @@ import chisel.core.all;
 import chisel.ui.all;
 
 import flipper.devices.manager;
+import flipper.devices.device;
 
 class FlipperApp : Application {
 	Window mainWindow;
@@ -17,7 +18,7 @@ class FlipperApp : Application {
 	
 	TreeView deviceTree;
 	
-	Frame deviceFrame;
+	//Frame deviceFrame;
 	
 	static const int WindowDefaultWidth = 700;
 	static const int WindowDefaultHeight = 500;
@@ -40,6 +41,7 @@ class FlipperApp : Application {
 		deviceTree = new TreeView( );
 		deviceTree.dataSource = new DeviceManagerDataSource( );
 		deviceTreeFrame.contentView = deviceTree;
+		deviceTree.onSelectionChanged += &deviceSelectionChanged;
 		stackView.addSubview( deviceTreeFrame );
 		stackView.setSize( deviceTreeFrame, DeviceTreeDefaultWidth );
 		
@@ -48,15 +50,14 @@ class FlipperApp : Application {
 		deviceTree.outlineTableColumn = col;
 		
 		// add a frame to the right of the splitview
-		deviceFrame = new Frame( "Device Information" );
-		stackView.addSubview( deviceFrame );
+		//deviceFrame = new Frame( "Device Information" );
+		//stackView.addSubview( deviceFrame );
 		
 		// attach the splitter as the contentView for the window
 		mainWindow.contentView = stackView;
 		
 		// size the splitter's divider to a decent size for the tree
-		//stackView.setDividerPosition( 0, DeviceTreeDefaultWidth );
-		stackView.setProportion( deviceFrame, 1 );
+		//stackView.setProportion( deviceFrame, 1 );
 		
 		// attach window closer handler and make visible
 		mainWindow.onClose += &onWindowClose;
@@ -73,7 +74,7 @@ class FlipperApp : Application {
 	}
 	
 	StopWatch lastEnumeration;
-	const int EnumerationFrequencyUS = 5000000;
+	const int EnumerationFrequencyUS = 2000000;
 	
 	void idleTask( ) {
 		if ( lastEnumeration.microsec > EnumerationFrequencyUS ) {
@@ -87,10 +88,40 @@ class FlipperApp : Application {
 		if ( devChange != 0 ) {
 			DeviceManager.enumerateUSBDevices( );
 			deviceTree.reloadData( );
+			
+			deviceSelectionChanged( null );
 		}
 		
 		lastEnumeration.stop( );
 		lastEnumeration.start( );
+	}
+	
+	View currentDevicePanel;
+	
+	void deviceSelectionChanged( Event e ) {
+		auto rows = deviceTree.selectedRows;
+		
+		// hide the current panel
+		if ( currentDevicePanel !is null ) {
+			currentDevicePanel.removeFromSuperview( );
+			currentDevicePanel = null;
+		}
+		
+		if ( rows.length == 0 ) {
+			return;
+		}
+		
+		Device selectedDevice = cast(Device)rows[0];
+		
+		assert( currentDevicePanel is null );
+		
+		// get the board's information panel and add it to the view
+		currentDevicePanel = selectedDevice.devicePanel( );
+		stackView.addSubview( currentDevicePanel );
+		stackView.setProportion( currentDevicePanel, 1 );
+		
+		version (Tango)
+			Stdout.formatln( "Selection changed: {} (panel={})", selectedDevice, currentDevicePanel );
 	}
 }
 
@@ -100,6 +131,8 @@ int main( char[][] argv ) {
 	
 	FlipperApp app = cast(FlipperApp)inf.create( );
 	app.run( );
+	
+	DeviceManager.cleanup( );
 	
 	//Stdout.formatln( "Classinfo: {}",  );
 	
