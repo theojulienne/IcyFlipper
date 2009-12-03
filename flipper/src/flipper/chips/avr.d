@@ -1,9 +1,17 @@
 module flipper.chips.avr;
 
-import std.compat;
-import std.stdio;
-
-import tango.core.Thread;
+/*import std.compat;
+import std.stdio;*/
+version (Tango) {
+	import tango.io.Stdout;
+	import tango.core.Thread;
+	
+	void writefln( char[] foo, ... ) {
+		Stdout.formatln( foo );
+	}
+} else {
+	import std.stdio;
+}
 
 import flipper.devices.device;
 import flipper.chips.base;

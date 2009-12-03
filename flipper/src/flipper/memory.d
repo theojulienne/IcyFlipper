@@ -1,10 +1,16 @@
 module flipper.memory;
 
-import tango.io.device.File;
-import tango.io.device.Conduit;
-import tango.io.stream.Buffered;
+version (Tango) {
+	import tango.io.device.File;
+	import tango.io.device.Conduit;
+	import tango.io.stream.Buffered;
+} else {
+	import std.stream;
+	alias BufferedStream BufferedInput;
+	alias Stream InputStream;
+}
 
-import std.stdio;
+//import std.stdio;
 
 import flipper.chips.base;
 
@@ -40,7 +46,11 @@ class Memory {
 	typedef void delegate( uint bytesCompleted ) MemoryProgressDelegate;
 	
 	bool writeStream( InputStream src, MemoryProgressDelegate writeProgress=null ) {
-		BufferedInput srcData = new BufferedInput( src );
+		version (Tango) {
+			BufferedInput srcData = new BufferedInput( src );
+		} else {
+			InputStream srcData = src;
+		}
 		
 		srcData.seek( 0, File.Anchor.Begin );
 		
@@ -69,7 +79,11 @@ class Memory {
 	}
 	
 	bool verifyStream( InputStream src, MemoryProgressDelegate verifyProgress=null ) {
-		BufferedInput srcData = new BufferedInput( src );
+		version (Tango) {
+			BufferedInput srcData = new BufferedInput( src );
+		} else {
+			InputStream srcData = src;
+		}
 		
 		srcData.seek( 0, File.Anchor.Begin );
 		
@@ -91,7 +105,7 @@ class Memory {
 				//writefln( "%s == %s", correctBytes[j], verifyBytes[j] );
 				
 				if ( actualBuf[j] != pageBuf[j] ) {
-					writefln( "Error with byte %s in page %s (expected %s, read %s)", j, currPage, pageBuf[j], actualBuf[j] );
+					//writefln( "Error with byte %s in page %s (expected %s, read %s)", j, currPage, pageBuf[j], actualBuf[j] );
 					throw new Exception( "Verify failed!" );
 				}
 			}

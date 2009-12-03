@@ -6,12 +6,11 @@ import chisel.ui.all;
 import flipper.devices.imports;
 import flipper.devices.device;
 
-import tango.util.container.LinkedList;
-import tango.io.Stdout;
+version (Tango) {
+	import tango.io.Stdout;
+}
 
 import usb.all;
-
-alias LinkedList!(Device) DeviceList;
 
 class DeviceManager {
 	struct MatchUSB {
@@ -63,7 +62,7 @@ class DeviceManager {
 					
 					if ( desc.idVendor == vendorId || desc.idProduct == productId ) {
 						
-						Stdout.formatln( "Found match: {}!", deviceMatch.name );
+						version (Tango) Stdout.formatln( "Found match: {}!", deviceMatch.name );
 						Device flipperDev = cast(Device)deviceMatch.classInfo.create( );
 						flipperDev.usbDevice = dev;
 						matchedDevices[dev] = flipperDev;
@@ -75,7 +74,7 @@ class DeviceManager {
 		}
 		
 		foreach ( usbdev, flipdev; disconnectedDevices ) {
-			Stdout.formatln( "Disconnected device: {}", flipdev );
+			version (Tango) Stdout.formatln( "Disconnected device: {}", flipdev );
 			
 			matchedDevices.remove( usbdev );
 			delete flipdev;

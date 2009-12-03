@@ -1,7 +1,29 @@
 module flipper.ui;
 
-import tango.io.Stdout;
-import tango.time.StopWatch;
+version (Tango) {
+	import tango.io.Stdout;
+	import tango.time.StopWatch;
+} else {
+	import std.date;
+
+	struct StopWatch {
+        d_time start_time;
+        
+        void start( ) {
+            start_time = getUTCtime( );
+        }
+        
+        void stop( ) {
+        
+        }
+        
+        ulong microsec( ) {
+            d_time curr_time = getUTCtime( );
+            return (curr_time - start_time) * 1000000 / TicksPerSecond;
+        }
+    }
+
+}
 
 import usb.all;
 

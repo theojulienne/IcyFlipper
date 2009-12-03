@@ -1,11 +1,17 @@
 module flipper.protocols.jtag;
 
-import std.compat;
-import std.string;
-import std.stdio;
+version (Tango) {
+	alias char[] string;
+}
 
-import tango.util.container.LinkedList;
-import tango.core.BitArray;
+/*import std.compat;
+import std.string;
+import std.stdio;*/
+
+version (Tango) {
+	import tango.util.container.LinkedList;
+	import tango.core.BitArray;
+}
 
 struct _int_hax {
 	union {

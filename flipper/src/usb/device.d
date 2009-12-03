@@ -5,6 +5,7 @@ version (Tango) {
 	alias char[] string;
 } else {
 	import std.string;
+	alias std.string.toString fromStringz;
 }
 
 import usb.libusb;

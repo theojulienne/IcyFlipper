@@ -1,9 +1,11 @@
 module flipper.flash.avrflash;
 
-import std.compat;
-import std.stdio;
+/*import std.compat;
+import std.stdio;*/
 
-import tango.core.Thread;
+version (Tango) {
+	import tango.core.Thread;
+}
 
 import flipper.chips.avr;
 import flipper.flash.base;

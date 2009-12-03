@@ -1,8 +1,13 @@
 module flipper.devices.penguinoavr.device;
 
-import tango.io.Stdout;
-import tango.io.device.File;
-import tango.io.device.Conduit;
+version (Tango) {
+	import tango.io.Stdout;
+	import tango.io.device.File;
+	import tango.io.device.Conduit;
+} else {
+	import std.stdio;
+	import std.stream;
+}
 
 import flipper.devices.device;
 import flipper.devices.manager;
@@ -44,7 +49,7 @@ class PenguinoAVRDevice : Device {
 	Label uploadStatus;
 	
 	this( ) {
-		Stdout.formatln( "Penguino AVR Device constructor" );
+		version (Tango) Stdout.formatln( "Penguino AVR Device constructor" );
 	}
 	
 	void usbDevice( USBDevice dev ) {
@@ -54,7 +59,7 @@ class PenguinoAVRDevice : Device {
 		ijtag = cast(IJTAG)penprog;
 		sm = new TAPStateMachine( ijtag );
 		
-		Stdout.formatln( "Penguino AVR now has a USB device!" );
+		version (Tango) Stdout.formatln( "Penguino AVR now has a USB device!" );
 		
 		assert( verifyParts( ), "Could not verify the chip on the attached Penguino AVR" );
 		
@@ -132,7 +137,7 @@ class PenguinoAVRDevice : Device {
 		TAPDeviceIDRegister reg = TAPDeviceIDRegister.ForID( id );
 		
 		//writefln( "IDCODE = %s: %s\n", id, reg );
-		Stdout.format( "IDCODE = {0}: {1}", id, reg.toString ).newline;
+		version (Tango) Stdout.format( "IDCODE = {0}: {1}", id, reg.toString ).newline;
 		
 		if ( id != 0x8950203f ) {
 			return false;
@@ -198,7 +203,7 @@ class PenguinoAVRDevice : Device {
 		String path = paths[0];
 		
 		version (Tango) {
-			Stdout.formatln( "Uploading: {}", path );
+			version (Tango) Stdout.formatln( "Uploading: {}", path );
 		} else {
 			writefln( "Uploading: %s", path );
 		}
@@ -219,10 +224,14 @@ class PenguinoAVRDevice : Device {
 		if ( file is null )
 			return;
 		
-		int sourceBytes = file.length;
+		version (Tango) {
+			int sourceBytes = file.length;
+		} else {
+			int sourceBytes = file.size;
+		}
 		
 		//Stdout.newline;
-		//Stdout.format( "Erasing {0}...", uploadTarget ).newline;
+		//version (Tango) Stdout.format( "Erasing {0}...", uploadTarget ).newline;
 		uploadStatus.text = "Erawing " ~ uploadTarget ~ "...";
 		targetMemory.erase( );
 		
@@ -254,20 +263,20 @@ class PenguinoAVRDevice : Device {
 				progressPercent = (cast(float)bytesCompleted / cast(float)sourceBytes) * 100;
 			}
 			
-			Stdout.format( "] {0}%   ({1} of {2} bytes)", progressPercent, bytesCompleted, sourceBytes );
+			version (Tango) Stdout.format( "] {0}%   ({1} of {2} bytes)", progressPercent, bytesCompleted, sourceBytes );
 			Stdout.flush;
 			//fflush( stdout );
 			*/
 		}
 		
 		//Stdout.newline.newline;
-		//Stdout.format( "Writing {0}...", uploadTarget ).newline;
+		//version (Tango) Stdout.format( "Writing {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
 		uploadStatus.text = "Writing " ~ uploadTarget ~ "...";
 		targetMemory.writeStream( file, &reportOperationProgress );
 		
 		//Stdout.newline.newline;
-		//Stdout.format( "Verifying {0}...", uploadTarget ).newline;
+		//version (Tango) Stdout.format( "Verifying {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
 		uploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
 		targetMemory.verifyStream( file, &reportOperationProgress );
@@ -278,10 +287,10 @@ class PenguinoAVRDevice : Device {
 		
 		AVRChip chip = cast(AVRChip)chips["user"];
 		
-		Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
+		version (Tango) Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
 		chip.WriteFuseL( 0xEF );
 		
-		Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
+		version (Tango) Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
 		chip.WriteFuseH( 0x89 );
 		
 		chip.exitProgMode( );
@@ -315,7 +324,7 @@ class PenprogInterface : IJTAG {
 	
 	~this( ) {
 		version (Tango) {
-			Stdout.formatln( "Releasing interface..." );
+			version (Tango) Stdout.formatln( "Releasing interface..." );
 		} else {
 	    	writefln( "Releasing interface..." );
 		}

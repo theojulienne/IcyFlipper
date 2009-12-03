@@ -1,6 +1,8 @@
 module flipper.chips.base;
 
-import std.compat : string;
+version (Tango) {
+	alias char[] string;
+}
 
 import flipper.devices.device;
 import flipper.memory;
