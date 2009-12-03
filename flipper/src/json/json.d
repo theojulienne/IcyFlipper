@@ -45,20 +45,6 @@ real toReal( char[] buffer ) {
 	}
 }
 
-char[][] splitString( char[] string, char delim[] ) {
-	char[][] chunks;
-	version( Tango ) {
-		chunks = Util.split( string, delim );
-	} else {
-		chunks = string.split( delim );
-	}
-	
-	return chunks;
-}
-
-
-
-
 class JSONException : Exception {
 	this( int line, char[] msg ) {
 		char[] lineNum;
@@ -80,7 +66,6 @@ enum JSONType { Object, Array, String, Number, Bool, Null };
 interface JSONValue {
 	JSONType type( );
 	char[] encode( );
-	static JSONValue decode( char[] );
 }
 
 class JSONObject : JSONValue {
@@ -284,14 +269,6 @@ class JSONNull : JSONValue {
 	}
 }
 
-/*
-void debugPrint( char[] message ) {
-	version( Tango ) {
-		Stdout( message ~ "\n" );
-	}
-}
-*/
-
 class JSON {
 	private static const char EOF = cast(char)255;
 	
@@ -334,7 +311,7 @@ class JSON {
 		this.line = 0;
 	}
 	
-	private void error (char[] msg) {
+	private void error( char[] msg ) {
 		throw new JSONException( line, msg );
 	}
 	
