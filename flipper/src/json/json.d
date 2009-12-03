@@ -317,7 +317,7 @@ class JSON {
 		Token token;
 		token.type = TokenType.None;
 		char[] buffer;
-		char c = ' ';
+		char c = ' '; // give it a space to start with
 		
 		// stepping through characters
 		void nextChar( ) {
@@ -347,7 +347,7 @@ class JSON {
 			index--;
 		}
 		
-		// validation matching
+		// validation matching for bool and null
 		char[] matchWord;
 	
 		void match( ) {
@@ -361,7 +361,7 @@ class JSON {
 		}
 		
 		
-		// digit lexer
+		// digit lexer, saves digits to the buffer until no more digits
 		void lexDigits( ) {
 			do {
 				buffer ~= c;
@@ -418,19 +418,32 @@ class JSON {
 					escaping = false;
 				} else {
 					if ( c == '\\' ) {
+						
+						// escape character, start escaping
+						
 						escaping = true;
-						continue;
+						continue; // read another character
 					} else if ( c == '"' ) {
+						
+						// end of string, save the token
 						token.stringValue = buffer;
 						token.type = TokenType.String;
-						return;
+						
+						return; // we're done
 					} else if ( c == EOF ) {
+						
+						// uh-oh
 						error( "Unterminated string literal" );
+						
 					} else {
+						
+						// otherwise just add the character to the buffer
+						// and count new lines inside strings too
 						if ( c == '\n' ) {
 							line++;
 						}
 						buffer ~= c;
+						
 					}
 				}
 			}
