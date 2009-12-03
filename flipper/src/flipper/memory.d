@@ -48,7 +48,7 @@ class Memory {
 	
 	bool readStreamBytes( InputStream stream, ubyte[] buf, out size_t bytesRead ) {
 		version (Tango) {
-			bytesRead = stream.fill( buf );
+			bytesRead = stream.read( buf );
 			return bytesRead != IConduit.Eof;
 		} else {
 			if ( stream.eof )

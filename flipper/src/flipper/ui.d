@@ -100,7 +100,7 @@ class FlipperApp : Application {
 	const int EnumerationFrequencyUS = 2000000;
 	
 	void idleTask( ) {
-		printf( "idle\n" );
+		//printf( "idle\n" );
 		if ( lastEnumeration.microsec > EnumerationFrequencyUS ) {
 			doUSBEnumeration( );
 		}
