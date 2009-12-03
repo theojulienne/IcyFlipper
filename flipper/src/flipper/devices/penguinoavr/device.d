@@ -232,7 +232,7 @@ class PenguinoAVRDevice : Device {
 		
 		//Stdout.newline;
 		//version (Tango) Stdout.format( "Erasing {0}...", uploadTarget ).newline;
-		uploadStatus.text = "Erawing " ~ uploadTarget ~ "...";
+		uploadStatus.text = "Erasing " ~ uploadTarget ~ "...";
 		targetMemory.erase( );
 		
 		void reportOperationProgress( uint bytesCompleted ) {
@@ -282,15 +282,18 @@ class PenguinoAVRDevice : Device {
 		targetMemory.verifyStream( file, &reportOperationProgress );
 		
 		uploadStatus.text = "Done!";
+		reportOperationProgress( sourceBytes );
 		
 		targetMemory.finished( );
 		
 		AVRChip chip = cast(AVRChip)chips["user"];
 		
 		version (Tango) Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
+		else writefln( "ReadFuseL() = %s", chip.ReadFuseL( ) );
 		chip.WriteFuseL( 0xEF );
 		
 		version (Tango) Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
+		else writefln( "ReadFuseH() = %s", chip.ReadFuseH( ) );
 		chip.WriteFuseH( 0x89 );
 		
 		chip.exitProgMode( );

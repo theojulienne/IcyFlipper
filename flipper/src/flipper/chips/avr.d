@@ -11,6 +11,20 @@ version (Tango) {
 	}
 } else {
 	import std.stdio;
+	static import std.thread;
+	import std.c.time;
+	
+	class Thread : std.thread.Thread {
+		static void sleep( double seconds ) {
+			while ( seconds > 1 ) {
+				sleep( 1 );
+				seconds -= 1;
+			}
+			
+			uint micros = cast(uint)( seconds * 1000000 );
+			usleep( micros );
+		}
+	}
 }
 
 import flipper.devices.device;

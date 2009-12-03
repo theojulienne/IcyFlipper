@@ -6,6 +6,7 @@ version (Tango) {
 	import tango.io.stream.Buffered;
 } else {
 	import std.stream;
+	import std.stdio;
 	alias BufferedStream BufferedInput;
 	alias Stream InputStream;
 }
@@ -45,14 +46,26 @@ class Memory {
 	
 	typedef void delegate( uint bytesCompleted ) MemoryProgressDelegate;
 	
+	bool readStreamBytes( InputStream stream, ubyte[] buf, out size_t bytesRead ) {
+		version (Tango) {
+			bytesRead = stream.fill( buf );
+			return bytesRead != IConduit.Eof;
+		} else {
+			if ( stream.eof )
+				return false;
+			bytesRead = stream.read( buf );
+			return bytesRead > 0;
+		}
+	}
+	
 	bool writeStream( InputStream src, MemoryProgressDelegate writeProgress=null ) {
 		version (Tango) {
 			BufferedInput srcData = new BufferedInput( src );
+			srcData.seek( 0, File.Anchor.Begin );
 		} else {
 			InputStream srcData = src;
+			srcData.seekSet( 0 );
 		}
-		
-		srcData.seek( 0, File.Anchor.Begin );
 		
 		ubyte[] pageBuf;
 		pageBuf.length = pageBytes;
@@ -61,8 +74,8 @@ class Memory {
 		
 		writeProgress( 0 );
 		
-		while ( (size_read = srcData.fill( pageBuf )) != IConduit.Eof ) {
-			//writefln( "read position: %s (read %s bytes)", srcData.position, size_read );
+		//while ( (size_read = srcData.fill( pageBuf )) != IConduit.Eof ) {
+		while ( readStreamBytes( srcData, pageBuf, size_read ) ) {
 			assert( currPage < numPages );
 			
 			writeProgress( currPage * pageBytes );
@@ -81,11 +94,11 @@ class Memory {
 	bool verifyStream( InputStream src, MemoryProgressDelegate verifyProgress=null ) {
 		version (Tango) {
 			BufferedInput srcData = new BufferedInput( src );
+			srcData.seek( 0, File.Anchor.Begin );
 		} else {
 			InputStream srcData = src;
+			srcData.seekSet( 0 );
 		}
-		
-		srcData.seek( 0, File.Anchor.Begin );
 		
 		ubyte[] pageBuf, actualBuf;
 		pageBuf.length = pageBytes;
@@ -94,7 +107,8 @@ class Memory {
 		
 		verifyProgress( 0 );
 		
-		while ( (size_read = srcData.fill( pageBuf )) != IConduit.Eof ) {
+		//while ( (size_read = srcData.fill( pageBuf )) != IConduit.Eof ) {
+		while ( readStreamBytes( srcData, pageBuf, size_read ) ) {
 			assert( currPage < numPages );
 			
 			verifyProgress( currPage * pageBytes );

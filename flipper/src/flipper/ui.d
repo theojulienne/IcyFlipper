@@ -5,6 +5,7 @@ version (Tango) {
 	import tango.time.StopWatch;
 } else {
 	import std.date;
+	import std.stdio;
 
 	struct StopWatch {
         d_time start_time;
@@ -99,6 +100,7 @@ class FlipperApp : Application {
 	const int EnumerationFrequencyUS = 2000000;
 	
 	void idleTask( ) {
+		printf( "idle\n" );
 		if ( lastEnumeration.microsec > EnumerationFrequencyUS ) {
 			doUSBEnumeration( );
 		}
@@ -144,6 +146,8 @@ class FlipperApp : Application {
 		
 		version (Tango)
 			Stdout.formatln( "Selection changed: {} (panel={})", selectedDevice, currentDevicePanel );
+		else
+			writefln( "Selection changed: %s", selectedDevice );
 	}
 }
 

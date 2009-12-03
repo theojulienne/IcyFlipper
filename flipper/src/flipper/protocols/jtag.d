@@ -11,6 +11,30 @@ import std.stdio;*/
 version (Tango) {
 	import tango.util.container.LinkedList;
 	import tango.core.BitArray;
+} else {
+	class LinkedList( T ) {
+		T[] ts;
+		
+		void append( T t ) {
+			ts ~= t;
+		}
+		
+		alias append add;
+		
+		T removeHead( ) {
+			T tmp = ts[0];
+			ts = ts[1..$];
+			return tmp;
+		}
+		
+		uint size( ) {
+			return ts.length;
+		}
+		
+		T[] toArray( ) {
+			return ts;
+		}
+	}
 }
 
 struct _int_hax {
