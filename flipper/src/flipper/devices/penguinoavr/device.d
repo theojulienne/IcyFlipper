@@ -210,7 +210,11 @@ class PenguinoAVRDevice : Device {
 		
 		// AVR flashingness
 		
-		File file = new File( path.toString );
+		version (Tango) {
+			File file = new File( path.toString );
+		} else {
+			Stream file = new BufferedFile( path.toString, FileMode.In );
+		}
 		
 		if ( file is null )
 			return;
