@@ -32,8 +32,6 @@ char[] trimWhitespace( inout char[] string ) {
 		string = string[0..$-1];
 	}
 	
-	string = Util.strip( string, '\n' );
-	
 	return string;
 }
 
