@@ -12,7 +12,11 @@ import usb.descriptors;
 
 class USBException : Exception {
 	this( string prefix ) {
-		super( prefix ~ ": " ~ std.string.toString( usb_strerror( ) ) );
+		version (Tango) {
+			super( prefix ~ ": " ~ fromStringz( usb_strerror( ) ) );
+		} else {
+			super( prefix ~ ": " ~ std.string.toString( usb_strerror( ) ) );
+		}
 	}
 }
 

@@ -271,6 +271,16 @@ class PenguinoAVRDevice : Device {
 		uploadStatus.text = "Done!";
 		
 		targetMemory.finished( );
+		
+		AVRChip chip = cast(AVRChip)chips["user"];
+		
+		Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
+		chip.WriteFuseL( 0xEF );
+		
+		Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
+		chip.WriteFuseH( 0x89 );
+		
+		chip.exitProgMode( );
 	}
 }
 
