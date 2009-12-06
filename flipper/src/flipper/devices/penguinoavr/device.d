@@ -290,13 +290,15 @@ class PenguinoAVRDevice : Device {
 		uploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
 		targetMemory.verifyStream( file, &reportOperationProgress );
 		
-		uploadStatus.text = "Done!";
-		reportOperationProgress( sourceBytes );
+		uploadStatus.text = "Preparing for post-flashing...";
+		uploadProgress.indeterminate = true;
+		uploadProgress.animating = true;
 		
 		targetMemory.finished( );
 		
 		AVRChip chip = cast(AVRChip)chips["user"];
 		
+		uploadStatus.text = "Updating fuse bit (L)...";
 		version (Tango) {
 			Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
 		} else {
@@ -304,6 +306,7 @@ class PenguinoAVRDevice : Device {
 		}
 		chip.WriteFuseL( 0xEF );
 		
+		uploadStatus.text = "Updating fuse bit (H)...";
 		version (Tango) {
 			Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
 		} else {
@@ -312,6 +315,10 @@ class PenguinoAVRDevice : Device {
 		chip.WriteFuseH( 0x89 );
 		
 		chip.exitProgMode( );
+		
+		uploadStatus.text = "Done!";
+		uploadProgress.animating = false;
+		uploadProgress.indeterminate = false;
 	}
 }
 
