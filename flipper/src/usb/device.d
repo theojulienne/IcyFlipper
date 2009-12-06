@@ -105,6 +105,10 @@ class USBDevice {
 		return usb_bulk_write( _hdl, endpoint, data.ptr, data.length, timeout );
 	}
 	
+	int clearHalt( int endpoint ) {
+		return usb_clear_halt( _hdl, endpoint );
+	}
+	
 	string getError( ) {
 		return fromStringz( usb_strerror( ) );
 	}

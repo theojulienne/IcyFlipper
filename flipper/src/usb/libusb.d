@@ -21,6 +21,8 @@ extern (C) {
 	int usb_bulk_read( usb_dev_handle *dev, int ep, ubyte *bytes, int size, int timeout );
 	int usb_bulk_write( usb_dev_handle *dev, int ep, ubyte *bytes, int size, int timeout );
 	
+	int usb_clear_halt( usb_dev_handle *dev, uint ep );
+	
 	char *usb_strerror( );
 	
 	

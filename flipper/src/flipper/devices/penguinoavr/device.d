@@ -142,8 +142,11 @@ class PenguinoAVRDevice : Device {
 		uint id = response.GetUInt32( );
 		TAPDeviceIDRegister reg = TAPDeviceIDRegister.ForID( id );
 		
-		//writefln( "IDCODE = %s: %s\n", id, reg );
-		version (Tango) Stdout.format( "IDCODE = {0}: {1}", id, reg.toString ).newline;
+		version (Tango) {
+			Stdout.format( "IDCODE = {0}: {1}", id, reg.toString ).newline;
+		} else {
+			writefln( "IDCODE = %s: %s\n", id, reg );
+		}
 		
 		if ( id != 0x8950203f ) {
 			return false;
@@ -164,7 +167,7 @@ class PenguinoAVRDevice : Device {
 			ijtag.JTAGReset( _systemReset, _testReset );
 			
 			version (Tango) {
-				
+				Stdout.formatln( "reset: sys={} test={}", _systemReset, _testReset );
 			} else {
 				writefln( "reset: sys=%s test=%s", _systemReset, _testReset );
 			}
@@ -180,7 +183,7 @@ class PenguinoAVRDevice : Device {
 			ijtag.JTAGReset( _systemReset, _testReset );
 			
 			version (Tango) {
-				
+				Stdout.formatln( "reset: sys={} test={}", _systemReset, _testReset );
 			} else {
 				writefln( "reset: sys=%s test=%s", _systemReset, _testReset );
 			}
@@ -429,26 +432,30 @@ class PenprogInterface : IJTAG {
 		
 		//writefln( "Chunk will contain %d bits, starting from [%d]", numBits, startIndex );
 		
+		void reportUSBError( char[] where, USBDevice device, int ret ) {
+			version (Tango) {
+				Stdout.formatln( "[USB] Error in {}: {} (return code: {})", where, device.getError( ), ret );
+			} else {
+				writefln( "[USB] Error in %s: %s (return code: %s)", where, device.getError( ), ret );
+			}
+		}
+		
 		// prepare our usb message
 		usbMsg[0] = jtagCommandClockBits;
 		usbMsg[1] = numBits;
 		usbMsg[2..$] = outData.data;
 		while ( (ret = device.bulkWrite( jtagBulkOut, usbMsg )) != usbMsg.length ) {
-			version (Tango) {
-				
-			} else {
-				writefln( "CHUNK: USB Bulk Write failed (%s), retrying...", ret ); // loopies
-			}
+			//reportUSBError( "USB Bulk Write (chunk)", device, ret );
+			
+			device.clearHalt( jtagBulkOut );
 		}
 		
 		// read the response
 		ubyte[32] readBytes;
 		while ( (ret = device.bulkRead( jtagBulkIn, readBytes )) != readBytes.length ) {
-			version (Tango) {
-				Stdout( "Error: " ~ device.getError( ) ).newline;
-			} else {
-				writefln( "CHUNK: USB Bulk Read failed (%s), retrying...", ret ); // loopies
-			}
+			//reportUSBError( "USB Bulk Read (chunk)", device, ret );
+			
+			device.clearHalt( jtagBulkIn );
 		}
 		
 		//writefln( "read = %s", readBytes[1] );
