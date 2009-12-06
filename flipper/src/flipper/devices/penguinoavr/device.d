@@ -52,6 +52,12 @@ class PenguinoAVRDevice : Device {
 		version (Tango) Stdout.formatln( "Penguino AVR Device constructor" );
 	}
 	
+	~this( ) {
+		if ( penprog !is null ) {
+			delete penprog;
+		}
+	}
+	
 	void usbDevice( USBDevice dev ) {
 		Device.usbDevice( dev );
 		
@@ -288,12 +294,18 @@ class PenguinoAVRDevice : Device {
 		
 		AVRChip chip = cast(AVRChip)chips["user"];
 		
-		version (Tango) Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
-		else writefln( "ReadFuseL() = %s", chip.ReadFuseL( ) );
+		version (Tango) {
+			Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
+		} else {
+			writefln( "ReadFuseL() = %s", chip.ReadFuseL( ) );
+		}
 		chip.WriteFuseL( 0xEF );
 		
-		version (Tango) Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
-		else writefln( "ReadFuseH() = %s", chip.ReadFuseH( ) );
+		version (Tango) {
+			Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
+		} else {
+			writefln( "ReadFuseH() = %s", chip.ReadFuseH( ) );
+		}
 		chip.WriteFuseH( 0x89 );
 		
 		chip.exitProgMode( );
@@ -327,7 +339,7 @@ class PenprogInterface : IJTAG {
 	
 	~this( ) {
 		version (Tango) {
-			version (Tango) Stdout.formatln( "Releasing interface..." );
+			Stdout.formatln( "Releasing interface..." );
 		} else {
 	    	writefln( "Releasing interface..." );
 		}
