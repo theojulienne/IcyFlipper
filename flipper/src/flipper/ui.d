@@ -112,15 +112,29 @@ class FlipperApp : Application {
 		if ( devChange != 0 ) {
 			DeviceManager.enumerateUSBDevices( );
 			deviceTree.reloadData( );
-			
-			deviceSelectionChanged( null );
 		}
 		
 		lastEnumeration.stop( );
 		lastEnumeration.start( );
 	}
 	
+	Device selectedDevice;
 	View currentDevicePanel;
+	
+	void deviceWillRemove( Device device ) {
+		assert( device !is null );
+		
+		if ( selectedDevice is device ) {
+			version (Tango) Stdout.formatln( "Active device has been disconnected!" );
+			
+			if ( currentDevicePanel !is null ) {
+				currentDevicePanel.removeFromSuperview( );
+				currentDevicePanel = null;
+			}
+			
+			selectedDevice = null;
+		}
+	}
 	
 	void deviceSelectionChanged( Event e ) {
 		auto rows = deviceTree.selectedRows;
@@ -135,7 +149,7 @@ class FlipperApp : Application {
 			return;
 		}
 		
-		Device selectedDevice = cast(Device)rows[0];
+		selectedDevice = cast(Device)rows[0];
 		
 		assert( currentDevicePanel is null );
 		

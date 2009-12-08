@@ -58,6 +58,12 @@ class PenguinoAVRDevice : Device {
 		}
 	}
 	
+	void usbDisconnected( USBDevice dev ) {
+		Device.usbDisconnected( dev );
+		
+		penprog.usbDisconnected( dev );
+	}
+	
 	void usbDevice( USBDevice dev ) {
 		Device.usbDevice( dev );
 		
@@ -353,7 +359,15 @@ class PenprogInterface : IJTAG {
 		} else {
 	    	writefln( "Releasing interface..." );
 		}
-		_device.releaseInterface( jtagInterface );
+		
+		if ( _device !is null ) {
+			_device.releaseInterface( jtagInterface );
+		}
+	}
+	
+	void usbDisconnected( USBDevice dev ) {
+		assert( dev is _device );
+		_device = null;
 	}
 	
 	void device( USBDevice dev ) {

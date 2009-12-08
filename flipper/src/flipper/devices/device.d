@@ -16,6 +16,10 @@ class Device {
 		_usbDevice = dev;
 	}
 	
+	void usbDisconnected( USBDevice dev ) {
+		_usbDevice = null;
+	}
+	
 	abstract View devicePanel( ) {
 		assert( false );
 	}

@@ -3,6 +3,7 @@ module flipper.devices.manager;
 import chisel.core.all;
 import chisel.ui.all;
 
+import flipper.ui;
 import flipper.devices.imports;
 import flipper.devices.device;
 
@@ -73,10 +74,15 @@ class DeviceManager {
 			}
 		}
 		
+		FlipperApp app = cast(FlipperApp)Application.sharedApplication;
+		
 		foreach ( usbdev, flipdev; disconnectedDevices ) {
 			version (Tango) Stdout.formatln( "Disconnected device: {}", flipdev );
 			
+			app.deviceWillRemove( flipdev );
+			
 			matchedDevices.remove( usbdev );
+			flipdev.usbDisconnected( usbdev );
 			delete flipdev;
 		}
 		
