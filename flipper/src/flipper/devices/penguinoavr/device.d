@@ -87,28 +87,10 @@ class PenguinoAVRDevice : Device {
 		chips["user"] = chip;
 	}
 	
-	void createDevicePanel( ) {
-		auto stackView = new StackView( StackDirection.Vertical );
-		stackView.padding = 0;
-		
-		auto deviceInfo = new Frame( "Device Information" );
-		stackView.addSubview( deviceInfo );
-		stackView.setProportion( deviceInfo, 1 );
-		
-		auto infoView = new StackView( StackDirection.Vertical );
-		infoView.padding = 16;
-		auto dfuButton = new Button( "Reset to DFU mode" );
-		dfuButton.onPress += &penprog.enterDFUMode;
-		infoView.addSubview( dfuButton );
-		deviceInfo.contentView = infoView;
-		
-		auto uploading = new Frame( "Device Upload" );
-		stackView.addSubview( uploading );
-		stackView.setProportion( uploading, 1 );
-		
+	View createProgrammingTab( ) {
 		auto progView = new StackView( StackDirection.Vertical );
 		progView.padding = 16;
-		auto uploadButton = new Button( "Upload" );
+		auto uploadButton = new Button( "Upload Flash..." );
 		uploadButton.onPress += &uploadPrompt;
 		progView.addSubview( uploadButton );
 		uploadStatus = new Label( "Waiting for upload..." );
@@ -117,9 +99,47 @@ class PenguinoAVRDevice : Device {
 		uploadProgress.indeterminate = false;
 		uploadProgress.value = 0;
 		progView.addSubview( uploadProgress );
-		uploading.contentView = progView;
 		
-		_devicePanel = stackView;
+		return progView;
+	}
+	
+	View createAdvancedTab( ) {
+		auto infoView = new StackView( StackDirection.Vertical );
+		infoView.padding = 16;
+		
+		
+		auto lines = [
+			"WARNING: Resetting to DFU mode should only be used when updating",
+			"the firmware on the Penguino, and should only be attempted by",
+			"advanced users at this time."
+		];
+		auto warningView = new StackView( StackDirection.Vertical );
+		foreach ( line; lines )
+			warningView.addSubview( new Label( line  ) );
+		infoView.addSubview( warningView );
+		
+		auto dfuButton = new Button( "Reset to DFU mode" );
+		dfuButton.onPress += &penprog.enterDFUMode;
+		infoView.addSubview( dfuButton );
+		
+		return infoView;
+	}
+	
+	void createDevicePanel( ) {
+		auto tabView = new TabView( );
+		
+		//auto deviceInfoTab = new TabViewItem( "Information" );
+		//tabView.appendItem( deviceInfoTab );
+		
+		auto progTab = new TabViewItem( "Programming" );
+		progTab.contentView = createProgrammingTab( );
+		tabView.appendItem( progTab );
+		
+		auto advancedTab = new TabViewItem( "Advanced" );
+		advancedTab.contentView = createAdvancedTab( );
+		tabView.appendItem( advancedTab );
+		
+		_devicePanel = tabView;
 	}
 	
 	View devicePanel( ) {
@@ -322,7 +342,7 @@ class PenguinoAVRDevice : Device {
 		
 		chip.exitProgMode( );
 		
-		uploadStatus.text = "Done!";
+		uploadStatus.text = "Upload Complete!";
 		uploadProgress.animating = false;
 		uploadProgress.indeterminate = false;
 	}

@@ -125,7 +125,7 @@ class AVRChip : Chip {
 		
 		// FIXME: Should do "6g. Poll for Fuse Write complete" here
 		
-		Thread.sleep( 1 );
+		Thread.sleep( 0.5 );
 	}
 	
 	public ubyte ReadFuseH( ) {
@@ -164,7 +164,7 @@ class AVRChip : Chip {
 		
 		// FIXME: Should do "6d. Poll for Fuse Write complete" here
 		
-		Thread.sleep( 1 );
+		Thread.sleep( 0.5 );
 	}
 	
 	void showInformation( ) {
