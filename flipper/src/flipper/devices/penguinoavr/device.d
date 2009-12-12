@@ -377,6 +377,9 @@ class PenprogInterface : IJTAG {
 		
 		// set timeout
 		// set configuration on win32
+		version (Windows) {
+			_device.configuration = 1;
+		}
 		
 		// claim interface
 		_device.claimInterface( jtagInterface );

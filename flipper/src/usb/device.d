@@ -86,15 +86,21 @@ class USBDevice {
 	}
 	
 	void configuration( int configuration ) {
-		assert( usb_set_configuration( _hdl, configuration) == 0 );
+		if ( usb_set_configuration( _hdl, configuration ) != 0 ) {
+			throw new USBException( "usb_set_configuration failed" );
+		}
 	}
 	
 	void claimInterface( int iface ) {
-		assert( usb_claim_interface( _hdl, iface ) == 0 );
+		if ( usb_claim_interface( _hdl, iface ) != 0 ) {
+			throw new USBException( "usb_claim_interface failed" );
+		}
 	}
 	
 	void releaseInterface( int iface ) {
-		assert( usb_release_interface( _hdl, iface ) == 0 );
+		if ( usb_release_interface( _hdl, iface ) != 0 ) {
+			throw new USBException( "usb_release_interface failed" );
+		}
 	}
 	
 	int bulkRead( int endpoint, ubyte[] data ) {
