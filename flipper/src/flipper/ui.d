@@ -3,6 +3,7 @@ module flipper.ui;
 version (Tango) {
 	import tango.io.Stdout;
 	import tango.time.StopWatch;
+	import tango.stdc.stdlib;
 } else {
 	import std.date;
 	import std.stdio;

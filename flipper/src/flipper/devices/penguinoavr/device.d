@@ -108,7 +108,7 @@ class PenguinoAVRDevice : Device {
 		infoView.padding = 16;
 		
 		
-		auto lines = [
+		char[][] lines = [
 			"WARNING: Resetting to DFU mode should only be used when updating",
 			"the firmware on the Penguino, and should only be attempted by",
 			"advanced users at this time."
