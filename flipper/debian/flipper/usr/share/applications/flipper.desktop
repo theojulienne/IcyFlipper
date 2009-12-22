@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Icy Flipper
+Comment=Upload firmware and manage the Penguino AVR by Icy Labs
+Exec=flipper
+#Icon=accessories-calculator
+NotShowIn=
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Development

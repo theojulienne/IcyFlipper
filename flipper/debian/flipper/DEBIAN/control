@@ -1,0 +1,11 @@
+Package: flipper
+Version: 0.1
+Architecture: i386
+Maintainer: Theo Julienne <theo@icy.com.au>
+Installed-Size: 748
+Depends: libatk1.0-0 (>= 1.20.0), libc6 (>= 2.3.6-6~), libcairo2 (>= 1.2.4), libfontconfig1 (>= 2.4.0), libfreetype6 (>= 2.2.1), libgcc1 (>= 1:4.1.1), libgl1-mesa-glx | libgl1, libglib2.0-0 (>= 2.16.0), libglu1-mesa | libglu1, libgtk2.0-0 (>= 2.16.0), libgtkgl2.0-1, libgtkglext1, libice6 (>= 1:1.0.0), libpango1.0-0 (>= 1.14.0), libsm6, libusb-0.1-4 (>= 2:0.1.12), libx11-6, libxmu6, libxt6, zlib1g (>= 1:1.1.4)
+Section: unknown
+Priority: extra
+Homepage: <insert the upstream URL, if relevant>
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
