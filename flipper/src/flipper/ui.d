@@ -110,6 +110,7 @@ class FlipperApp : Application {
 	void doUSBEnumeration( ) {
 		USB.findUSBBusses( );
 		int devChange = USB.findDevices( );
+		printf( "devChange = %d\n", devChange );
 		if ( devChange != 0 ) {
 			DeviceManager.enumerateUSBDevices( );
 			deviceTree.reloadData( );
