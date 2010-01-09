@@ -15,6 +15,7 @@ import flipper.protocols.jtag;
 import flipper.chips.avr;
 import flipper.flash.avrflash;
 import flipper.memory;
+import flipper.program;
 
 import chisel.core.all;
 import chisel.ui.all;
@@ -125,6 +126,70 @@ class PenguinoAVRDevice : Device {
 		return infoView;
 	}
 	
+	CheckBox BOOTRST, BOOTSZ0, BOOTSZ1;
+	
+	const int BIT_BOOTRST = 0x01;
+	const int BIT_BOOTSZ0 = 0x02;
+	const int BIT_BOOTSZ1 = 0x04;
+	
+	View createFuseTab( ) {
+		auto infoView = new StackView( StackDirection.Vertical );
+		infoView.padding = 16;
+		
+		infoView.addSubview( new Label( "Checks below reflect a setting of '1', which means unprogrammed." ) );
+		infoView.addSubview( new Label( "See ATMega32A datasheet for details." ) );
+		
+		BOOTSZ0 = new CheckBox( "BOOTSZ0" );
+		infoView.addSubview( BOOTSZ0 );
+		
+		BOOTSZ1 = new CheckBox( "BOOTSZ1" );
+		infoView.addSubview( BOOTSZ1 );
+		
+		BOOTRST = new CheckBox( "BOOTRST" );
+		infoView.addSubview( BOOTRST );
+		
+		ubyte fuseByte = readFuseH( );
+		
+		BOOTRST.checked = ( fuseByte & BIT_BOOTRST ) != 0;
+		BOOTSZ0.checked = ( fuseByte & BIT_BOOTSZ0 ) != 0;
+		BOOTSZ1.checked = ( fuseByte & BIT_BOOTSZ1 ) != 0;
+		
+		return infoView;
+	}
+	
+	ubyte generateHighFuse( ubyte rest ) {
+		ubyte ret = rest & 0xf8;
+		
+		if ( BOOTRST.checked )
+			ret |= BIT_BOOTRST;
+		
+		if ( BOOTSZ0.checked )
+			ret |= BIT_BOOTSZ0;
+		
+		if ( BOOTSZ1.checked )
+			ret |= BIT_BOOTSZ1;
+		
+		return ret;
+	}
+	
+	ubyte readFuseH( ) {
+		AVRChip chip = cast(AVRChip)chips["user"];
+		
+		ubyte b = chip.ReadFuseH( );
+		
+		chip.exitProgMode( );
+		
+		return b;
+	}
+	
+	void writeFuseH( ubyte b ) {
+		AVRChip chip = cast(AVRChip)chips["user"];
+		
+		chip.WriteFuseH( b );
+		
+		chip.exitProgMode( );
+	}
+	
 	void createDevicePanel( ) {
 		auto tabView = new TabView( );
 		
@@ -134,6 +199,10 @@ class PenguinoAVRDevice : Device {
 		auto progTab = new TabViewItem( "Programming" );
 		progTab.contentView = createProgrammingTab( );
 		tabView.appendItem( progTab );
+		
+		auto fuseTab = new TabViewItem( "Configuration" );
+		fuseTab.contentView = createFuseTab( );
+		tabView.appendItem( fuseTab );
 		
 		auto advancedTab = new TabViewItem( "Advanced" );
 		advancedTab.contentView = createAdvancedTab( );
@@ -250,7 +319,7 @@ class PenguinoAVRDevice : Device {
 		
 		// AVR flashingness
 		
-		version (Tango) {
+		/*version (Tango) {
 			File file = new File( path.toString );
 		} else {
 			Stream file = new BufferedFile( path.toString, FileMode.In );
@@ -263,7 +332,13 @@ class PenguinoAVRDevice : Device {
 			int sourceBytes = file.length;
 		} else {
 			int sourceBytes = file.size;
-		}
+		}*/
+		Program program = Program.load( path.toString );
+		
+		if ( program is null )
+			return;
+		
+		int sourceBytes = program.totalBytes;
 		
 		//Stdout.newline;
 		//version (Tango) Stdout.format( "Erasing {0}...", uploadTarget ).newline;
@@ -276,45 +351,19 @@ class PenguinoAVRDevice : Device {
 			
 			uploadProgress.maxValue = sourceBytes;
 			uploadProgress.value = bytesCompleted;
-			
-			/*Stdout( "\r  [" );
-			
-			int progressLength = 65;
-			int bytesPerChunk = sourceBytes / progressLength;
-			
-			for ( int i = 0; i < progressLength; i++ ) {
-				
-				if ( bytesCompleted > i * bytesPerChunk ) {
-					Stdout( "#" );
-				} else {
-					Stdout( "." );
-				}
-				
-			}
-			
-			float progressPercent = 0;
-			
-			if ( sourceBytes > 0 ) {
-				progressPercent = (cast(float)bytesCompleted / cast(float)sourceBytes) * 100;
-			}
-			
-			version (Tango) Stdout.format( "] {0}%   ({1} of {2} bytes)", progressPercent, bytesCompleted, sourceBytes );
-			Stdout.flush;
-			//fflush( stdout );
-			*/
 		}
 		
 		//Stdout.newline.newline;
 		//version (Tango) Stdout.format( "Writing {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
 		uploadStatus.text = "Writing " ~ uploadTarget ~ "...";
-		targetMemory.writeStream( file, &reportOperationProgress );
+		targetMemory.writeStream( program, &reportOperationProgress );
 		
 		//Stdout.newline.newline;
 		//version (Tango) Stdout.format( "Verifying {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
 		uploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
-		targetMemory.verifyStream( file, &reportOperationProgress );
+		targetMemory.verifyStream( program, &reportOperationProgress );
 		
 		uploadStatus.text = "Preparing for post-flashing...";
 		uploadProgress.indeterminate = true;
@@ -325,20 +374,22 @@ class PenguinoAVRDevice : Device {
 		AVRChip chip = cast(AVRChip)chips["user"];
 		
 		uploadStatus.text = "Updating fuse bit (L)...";
-		version (Tango) {
+		/*version (Tango) {
 			Stdout.formatln( "ReadFuseL() = {}", chip.ReadFuseL( ) );
 		} else {
 			writefln( "ReadFuseL() = %s", chip.ReadFuseL( ) );
-		}
+		}*/
 		chip.WriteFuseL( 0xEF );
 		
 		uploadStatus.text = "Updating fuse bit (H)...";
-		version (Tango) {
+		/*version (Tango) {
 			Stdout.formatln( "ReadFuseH() = {}", chip.ReadFuseH( ) );
 		} else {
 			writefln( "ReadFuseH() = %s", chip.ReadFuseH( ) );
-		}
-		chip.WriteFuseH( 0x89 );
+		}*/
+		ubyte highFuse = generateHighFuse( 0x88 );
+		Stdout.formatln( "Writing fuse high byte: {}", highFuse );
+		chip.WriteFuseH( highFuse );
 		
 		chip.exitProgMode( );
 		

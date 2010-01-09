@@ -14,6 +14,7 @@ version (Tango) {
 //import std.stdio;
 
 import flipper.chips.base;
+import flipper.program;
 
 class Memory {
 	public uint memoryBytes = 0; // in bytes
@@ -46,6 +47,61 @@ class Memory {
 	
 	typedef void delegate( uint bytesCompleted ) MemoryProgressDelegate;
 	
+	bool writeStream( Program program, MemoryProgressDelegate writeProgress=null ) {
+		writeProgress( 0 );
+		
+		uint offset = program.programStart;
+		uint startPage = offset / pageBytes;
+		uint currPage = startPage;
+		
+		while ( (offset-program.programStart) < program.totalBytes ) {
+			assert( currPage < numPages );
+			
+			writeProgress( (currPage-startPage) * pageBytes );
+			
+			ubyte[] pageBuf = program.getBytes( offset, offset+pageBytes );
+			writePage( currPage, pageBuf );
+			
+			currPage++;
+			offset += pageBytes;
+		}
+		
+		writeProgress( (currPage-startPage) * pageBytes );
+		
+		return true;
+	}
+	
+	bool verifyStream( Program program, MemoryProgressDelegate verifyProgress=null ) {
+		verifyProgress( 0 );
+		
+		uint offset = program.programStart;
+		uint startPage = offset / pageBytes;
+		uint currPage = startPage;
+		
+		while ( (offset-program.programStart) < program.totalBytes ) {
+			assert( currPage < numPages );
+			
+			verifyProgress( (currPage-startPage) * pageBytes );
+			
+			ubyte[] pageBuf = program.getBytes( offset, offset+pageBytes );
+			ubyte[] actualBuf = readPage( currPage );
+			
+			for ( int j = 0; j < pageBuf.length; j++ ) {
+				if ( actualBuf[j] != pageBuf[j] ) {
+					throw new Exception( "Verify failed!" );
+				}
+			}
+			
+			currPage++;
+			offset += pageBytes;
+		}
+		
+		verifyProgress( (currPage-startPage) * pageBytes );
+		
+		return true;
+	}
+	
+	/*
 	bool readStreamBytes( InputStream stream, ubyte[] buf, out size_t bytesRead ) {
 		version (Tango) {
 			bytesRead = stream.read( buf );
@@ -58,7 +114,7 @@ class Memory {
 		}
 	}
 	
-	bool writeStream( InputStream src, MemoryProgressDelegate writeProgress=null ) {
+	bool writeStream( InputStream src, MemoryProgressDelegate writeProgress=null, int pageOffset=0 ) {
 		version (Tango) {
 			BufferedInput srcData = new BufferedInput( src );
 			srcData.seek( 0, File.Anchor.Begin );
@@ -69,7 +125,7 @@ class Memory {
 		
 		ubyte[] pageBuf;
 		pageBuf.length = pageBytes;
-		int currPage = 0;
+		int currPage = pageOffset;
 		size_t size_read;
 		
 		writeProgress( 0 );
@@ -91,7 +147,7 @@ class Memory {
 		return true;
 	}
 	
-	bool verifyStream( InputStream src, MemoryProgressDelegate verifyProgress=null ) {
+	bool verifyStream( InputStream src, MemoryProgressDelegate verifyProgress=null, int pageOffset=0 ) {
 		version (Tango) {
 			BufferedInput srcData = new BufferedInput( src );
 			srcData.seek( 0, File.Anchor.Begin );
@@ -102,7 +158,7 @@ class Memory {
 		
 		ubyte[] pageBuf, actualBuf;
 		pageBuf.length = pageBytes;
-		int currPage = 0;
+		int currPage = pageOffset;
 		size_t size_read;
 		
 		verifyProgress( 0 );
@@ -130,5 +186,5 @@ class Memory {
 		verifyProgress( currPage * pageBytes );
 		
 		return true;
-	}
+	}*/
 }

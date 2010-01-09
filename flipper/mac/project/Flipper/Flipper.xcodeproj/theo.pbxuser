@@ -81,11 +81,10 @@
 			PBXWorkspaceStateSaveDate = 283136576;
 		};
 		perUserProjectItems = {
-			E40BDF3710E0525300A12998 /* PlistBookmark */ = E40BDF3710E0525300A12998 /* PlistBookmark */;
-			E4BBC6A410D1C35A0041D385 = E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */;
-			E4BBC6A510D1C35A0041D385 = E4BBC6A510D1C35A0041D385 /* PBXBookmark */;
-			E4BBC6A610D1C35A0041D385 = E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */;
-			E4BBC6A710D1C35A0041D385 = E4BBC6A710D1C35A0041D385 /* PlistBookmark */;
+			E40BDF4210E0C4AA00A12998 /* PlistBookmark */ = E40BDF4210E0C4AA00A12998 /* PlistBookmark */;
+			E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */;
+			E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */;
+			E4BBC6A710D1C35A0041D385 /* PlistBookmark */ = E4BBC6A710D1C35A0041D385 /* PlistBookmark */;
 		};
 		sourceControlManager = E4BBC68110D1B5D70041D385 /* Source Control */;
 		userBuildSettings = {
@@ -97,7 +96,7 @@
 			E4BBC67510D1B5CC0041D385 /* Flipper */,
 		);
 	};
-	E40BDF3710E0525300A12998 /* PlistBookmark */ = {
+	E40BDF4210E0C4AA00A12998 /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
 		fallbackIsa = PBXBookmark;
@@ -152,10 +151,6 @@
 		rType = 0;
 		vrLen = 45;
 		vrLoc = 0;
-	};
-	E4BBC6A510D1C35A0041D385 /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
 	};
 	E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
