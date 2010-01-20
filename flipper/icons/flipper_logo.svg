@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="flipper_logo.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3771">
+      <stop
+         style="stop-color:#648cff;stop-opacity:1;"
+         offset="0"
+         id="stop3773" />
+      <stop
+         style="stop-color:#dae4ff;stop-opacity:1;"
+         offset="1"
+         id="stop3775" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3763">
+      <stop
+         style="stop-color:#648cff;stop-opacity:1;"
+         offset="0"
+         id="stop3765" />
+      <stop
+         style="stop-color:#99b2ff;stop-opacity:1;"
+         offset="1"
+         id="stop3767" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3755">
+      <stop
+         style="stop-color:#3f6ae2;stop-opacity:1"
+         offset="0"
+         id="stop3757" />
+      <stop
+         style="stop-color:#cad8ff;stop-opacity:1;"
+         offset="1"
+         id="stop3759" />
+    </linearGradient>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2902"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3755"
+       id="radialGradient3761"
+       cx="412.60995"
+       cy="718.06653"
+       fx="412.60995"
+       fy="718.06653"
+       r="15.153352"
+       gradientTransform="matrix(0.8680122,2.9576778,-2.2538332,0.66144961,1675.9505,-997.06234)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3763"
+       id="linearGradient3769"
+       x1="387.9563"
+       y1="722.69177"
+       x2="406.00311"
+       y2="694.58002"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3771"
+       id="linearGradient3777"
+       x1="339.32799"
+       y1="760.99234"
+       x2="432.97809"
+       y2="760.99234"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(10,0)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3755"
+       id="radialGradient3786"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8680122,2.9576778,-2.2538332,0.66144961,1675.9505,-997.06234)"
+       cx="412.60995"
+       cy="718.06653"
+       fx="412.60995"
+       fy="718.06653"
+       r="15.153352" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3763"
+       id="linearGradient3788"
+       gradientUnits="userSpaceOnUse"
+       x1="387.9563"
+       y1="722.69177"
+       x2="406.00311"
+       y2="694.58002" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.3670084"
+     inkscape:cx="397.20104"
+     inkscape:cy="322.34648"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="945"
+     inkscape:window-height="686"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       y="761.13367"
+       x="378.90359"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3739"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3741"
+       width="2.1509311"
+       height="6.0198507"
+       x="387.41925"
+       y="761.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="761.13367"
+       x="395.93488"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3743"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3745"
+       width="2.1509311"
+       height="6.0198507"
+       x="404.45056"
+       y="761.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="761.13367"
+       x="412.96619"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3747"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3749"
+       width="2.1509311"
+       height="6.0198507"
+       x="421.48181"
+       y="761.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="761.13367"
+       x="429.99747"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3751"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3753"
+       width="2.1509311"
+       height="6.0198507"
+       x="438.51312"
+       y="761.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <g
+       id="g3779"
+       transform="matrix(0.99619471,-0.08715574,0.08715574,0.99619471,-62.321556,37.898158)"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366">
+      <path
+         sodipodi:nodetypes="ccsc"
+         id="path3684"
+         d="m 411.47556,700.3488 c 14.97634,18.4891 6.70473,61.59283 -12.43019,67.20224 24.06152,-3.11094 40.89165,-58.24871 19.48934,-69.82086 -6.04759,-3.26991 -6.64879,0.32725 -7.05915,2.61862 z"
+         style="fill:url(#radialGradient3786);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         id="path3686"
+         d="m 400.97648,722.13343 c 1.81527,-7.11746 6.24746,-20.62737 15.59419,-24.43992 -7.38486,2.51177 -13.68057,7.49111 -18.51179,24.03844 l 2.9176,0.40148 z"
+         style="fill:#00144d;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccccccc"
+         id="path2910"
+         d="m 382.85811,750.3277 4.20404,-0.67264 c 6.81663,-6.99288 12.74387,-13.37531 21.94041,-24.07265 l -1.11034,-2.15133 c -8.38795,7.74205 -19.14076,16.28185 -25.0815,26.68066 l -3e-5,-0.21053 0.0475,0.42648 -8e-5,1e-5 z"
+         style="fill:#00144e;fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccc"
+         id="path3688"
+         d="m 409.54449,703.30877 c 9.21419,-11.51069 15.99391,-0.95435 18.06542,7.57262 -3.84792,-9.60133 -7.32881,-16.73074 -18.06542,-7.57262 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2089408;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cccczccc"
+         id="path2908"
+         d="m 382.79543,750.30357 c 0,0 16.57249,-16.35084 25.21376,-26.83786 -3.07599,-0.45041 -8.76726,-1.44379 -8.76726,-1.44379 1.44081,-5.65224 8.5831,-26.03631 20.17038,-23.77519 0,0 -10.52472,-5.10866 -22.36015,-2.3486 -11.83544,2.76007 -18.7759,22.60506 -18.7759,22.60506 0,0 -3.49892,-0.72169 -5.87972,-1.28087 1.19445,14.8374 10.39889,33.08125 10.39889,33.08125 z"
+         style="fill:url(#linearGradient3788);fill-opacity:1;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <path
+       sodipodi:nodetypes="cccccccc"
+       id="path3700"
+       d="m 349.83371,767.26119 92.73662,-12.5015 -0.0305,5.48354 -24.94766,12.53501 -67.82596,0 0.0675,-5.51705 -3e-5,0 2e-5,0 z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.87647521;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <path
+       style="fill:url(#linearGradient3777);fill-opacity:1;stroke:#000000;stroke-width:0.87647521;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 374.7139,754.72484 67.82595,0 -24.94766,12.53501 -67.82596,0 24.94767,-12.53501 z"
+       id="rect3697"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3702"
+       width="2.1509311"
+       height="6.0198507"
+       x="352.90359"
+       y="773.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="773.13367"
+       x="361.41925"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3704"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3706"
+       width="2.1509311"
+       height="6.0198507"
+       x="369.93488"
+       y="773.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="773.13367"
+       x="378.45056"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3708"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3710"
+       width="2.1509311"
+       height="6.0198507"
+       x="386.96619"
+       y="773.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="773.13367"
+       x="395.48181"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3712"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3714"
+       width="2.1509311"
+       height="6.0198507"
+       x="403.99747"
+       y="773.13367"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+    <rect
+       y="773.13367"
+       x="412.51312"
+       height="6.0198507"
+       width="2.1509311"
+       id="rect3716"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98779261;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       inkscape:export-filename="/Users/dave/Documents/Icy/Graphics/flipper.png"
+       inkscape:export-xdpi="480.69366"
+       inkscape:export-ydpi="480.69366" />
+  </g>
+</svg>
