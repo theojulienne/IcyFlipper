@@ -77,19 +77,20 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 285639343;
-			PBXWorkspaceStateSaveDate = 285639343;
+			PBXPerProjectTemplateStateSaveDate = 285734276;
+			PBXWorkspaceStateSaveDate = 285734276;
 		};
 		perUserProjectItems = {
-			E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */;
-			E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */;
-			E4EF30681106832600754FD7 /* PBXBookmark */ = E4EF30681106832600754FD7 /* PBXBookmark */;
-			E4EF306A1106832600754FD7 /* PBXBookmark */ = E4EF306A1106832600754FD7 /* PBXBookmark */;
-			E4EF306B1106832600754FD7 /* PlistBookmark */ = E4EF306B1106832600754FD7 /* PlistBookmark */;
-			E4EF306C1106832600754FD7 /* PlistBookmark */ = E4EF306C1106832600754FD7 /* PlistBookmark */;
-			E4EF306D1106832600754FD7 /* PBXBookmark */ = E4EF306D1106832600754FD7 /* PBXBookmark */;
-			E4EF306F1106832600754FD7 /* PBXBookmark */ = E4EF306F1106832600754FD7 /* PBXBookmark */;
-			E4EF3073110699D400754FD7 /* PlistBookmark */ = E4EF3073110699D400754FD7 /* PlistBookmark */;
+			E4BBC6A410D1C35A0041D385 = E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */;
+			E4BBC6A610D1C35A0041D385 = E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */;
+			E4C2C00F1107F59600F7D2D6 /* PlistBookmark */ = E4C2C00F1107F59600F7D2D6 /* PlistBookmark */;
+			E4EF30681106832600754FD7 = E4EF30681106832600754FD7 /* PBXBookmark */;
+			E4EF306A1106832600754FD7 = E4EF306A1106832600754FD7 /* PBXBookmark */;
+			E4EF306B1106832600754FD7 = E4EF306B1106832600754FD7 /* PlistBookmark */;
+			E4EF306C1106832600754FD7 = E4EF306C1106832600754FD7 /* PlistBookmark */;
+			E4EF306D1106832600754FD7 = E4EF306D1106832600754FD7 /* PBXBookmark */;
+			E4EF306F1106832600754FD7 = E4EF306F1106832600754FD7 /* PBXBookmark */;
+			E4EF3073110699D400754FD7 = E4EF3073110699D400754FD7 /* PlistBookmark */;
 		};
 		sourceControlManager = E4BBC68110D1B5D70041D385 /* Source Control */;
 		userBuildSettings = {
@@ -156,12 +157,24 @@
 		vrLen = 45;
 		vrLoc = 0;
 	};
+	E4C2C00F1107F59600F7D2D6 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/theo/Development/flipper/mac/project/Flipper/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
 	E4EF30681106832600754FD7 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = E4EF30691106832600754FD7 /* Flipper.icns */;
 	};
 	E4EF30691106832600754FD7 /* Flipper.icns */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = image.icns;
 		name = Flipper.icns;
 		path = "/var/folders/nF/nFJPjRcEEMeVEfax1j0YGE+++TI/-Tmp-/com.apple.mail.drag/Flipper.icns";
 		sourceTree = "<absolute>";
@@ -198,6 +211,7 @@
 	};
 	E4EF306E1106832600754FD7 /* Flipper.icns */ = {
 		isa = PBXFileReference;
+		lastKnownFileType = image.icns;
 		name = Flipper.icns;
 		path = "/var/folders/nF/nFJPjRcEEMeVEfax1j0YGE+++TI/-Tmp-/com.apple.mail.drag/Flipper.icns";
 		sourceTree = "<absolute>";
