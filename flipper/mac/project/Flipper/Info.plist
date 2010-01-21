@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>flipper</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>Flipper</string>
 	<key>CFBundleIdentifier</key>
 	<string>au.com.icy.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>

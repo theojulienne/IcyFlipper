@@ -1,4 +1,4 @@
-module flipper.ui;
+module flipper.flip;
 
 version (Tango) {
 	import tango.io.Stdout;
@@ -35,7 +35,7 @@ import chisel.ui.all;
 import flipper.devices.manager;
 import flipper.devices.device;
 
-class FlipperApp : Application {
+class QuickFlipApp : Application, FlipperDeviceNotify {
 	Window mainWindow;
 	
 	StackView stackView;
@@ -44,53 +44,109 @@ class FlipperApp : Application {
 	
 	//Frame deviceFrame;
 	
-	static const int WindowDefaultWidth = 700;
-	static const int WindowDefaultHeight = 500;
+	static const int WindowDefaultWidth = 400;
+	static const int WindowDefaultHeight = 250;
 	
-	static const int DeviceTreeDefaultWidth = 180;
+	char[] programFilename;
+	bool flipCompleted = false;
 	
-	this( ) {
+	Button btnSelectTarget;
+	
+	this( char[] program ) {
 		applicationName = "Flipper";
+		
+		programFilename = program;
 		
 		mainWindow = new Window( "Flipper" );
 		mainWindow.setSize( WindowDefaultWidth, WindowDefaultHeight );
 		
-		// create a splitter
-		stackView = new StackView( StackDirection.Horizontal );
+		stackView = new StackView( StackDirection.Vertical );
 		stackView.padding = 16;
 		
 		// add a treeview to the left of the splitview
-		auto deviceTreeFrame = new Frame( "Devices" );
-		deviceTreeFrame.border = false;
 		deviceTree = new TreeView( );
 		deviceTree.dataSource = new DeviceManagerDataSource( );
-		deviceTreeFrame.contentView = deviceTree;
 		deviceTree.onSelectionChanged += &deviceSelectionChanged;
-		stackView.addSubview( deviceTreeFrame );
-		stackView.setSize( deviceTreeFrame, DeviceTreeDefaultWidth );
 		
 		auto col = new TableColumn( "Devices" );
 		deviceTree.addTableColumn( col );
 		deviceTree.outlineTableColumn = col;
 		
-		// add a frame to the right of the splitview
-		//deviceFrame = new Frame( "Device Information" );
-		//stackView.addSubview( deviceFrame );
+		stackView.addSubview( deviceTree );
+		stackView.setProportion( deviceTree, 1 );
+		
+		btnSelectTarget = new Button( "Select Target" );
+		btnSelectTarget.enabled = false;
+		btnSelectTarget.onPress += &useSelectedDevice;
+		stackView.addSubview( btnSelectTarget );
 		
 		// attach the splitter as the contentView for the window
 		mainWindow.contentView = stackView;
 		
-		// size the splitter's divider to a decent size for the tree
-		//stackView.setProportion( deviceFrame, 1 );
-		
-		// attach window closer handler and make visible
+		// attach window closer handler
 		mainWindow.onClose += &onWindowClose;
-		mainWindow.show( );
 		
 		// enumerate all devices, then enable the 0.5s enumeration routine
 		doUSBEnumeration( );
 		this.useIdleTask = true;
 		lastEnumeration.start;
+		
+		int numMatches = DeviceManager.matchedDevices.length;
+		
+		if ( numMatches == 1 ) {
+			foreach ( usbdev, dev; DeviceManager.matchedDevices ) {
+				beginUploadWithDevice( dev );
+			}
+		} else {
+			// now that enumeration is complete, show the window
+			mainWindow.show( );
+		}
+	}
+	
+	ProgressBar uploadProgress;
+	Label uploadStatus;
+	
+	void useSelectedDevice( Event e ) {
+		beginUploadWithDevice( selectedDevice );
+	}
+	
+	void beginUploadWithDevice( Device device ) {
+		stackView = new StackView( StackDirection.Vertical );
+		stackView.padding = 16;
+		
+		Frame frame = new Frame( "Programming" );
+		
+		auto progView = new StackView( StackDirection.Vertical );
+		progView.padding = 16;
+		uploadStatus = new Label( "Waiting for upload..." );
+		progView.addSubview( uploadStatus );
+		uploadProgress = new ProgressBar( ProgressBarType.Horizontal );
+		uploadProgress.indeterminate = false;
+		uploadProgress.value = 0;
+		progView.addSubview( uploadProgress );
+		
+		frame.contentView = progView;
+		
+		stackView.addSubview( frame );
+		stackView.setProportion( frame, 1 );
+		
+		mainWindow.contentView = stackView;
+		
+		float height = frame.sizeHint.suggestedSize.height + (32);
+		mainWindow.setSize( WindowDefaultWidth, height );
+		mainWindow.show( );
+		
+		SimpleProgramming simpleProg = cast(SimpleProgramming)device;
+		simpleProg.simpleProgramDevice( programFilename, uploadProgress, uploadStatus );
+		
+		uploadStatus.text = "Upload Complete!";
+		uploadProgress.animating = false;
+		uploadProgress.indeterminate = false;
+		
+		mainWindow.close( );
+		
+		flipCompleted = true;
+		stop( );
 	}
 	
 	void onWindowClose( ) {
@@ -110,7 +166,6 @@ class FlipperApp : Application {
 	void doUSBEnumeration( ) {
 		USB.findUSBBusses( );
 		int devChange = USB.findDevices( );
-		printf( "devChange = %d\n", devChange );
 		if ( devChange != 0 ) {
 			DeviceManager.enumerateUSBDevices( );
 			deviceTree.reloadData( );
@@ -156,9 +211,10 @@ class FlipperApp : Application {
 		assert( currentDevicePanel is null );
 		
 		// get the board's information panel and add it to the view
-		currentDevicePanel = selectedDevice.devicePanel( );
+		/*currentDevicePanel = selectedDevice.devicePanel( );
 		stackView.addSubview( currentDevicePanel );
-		stackView.setProportion( currentDevicePanel, 1 );
+		stackView.setProportion( currentDevicePanel, 1 );*/
+		btnSelectTarget.enabled = true;
 		
 		version (Tango)
 			Stdout.formatln( "Selection changed: {} (panel={})", selectedDevice, currentDevicePanel );
@@ -167,21 +223,23 @@ class FlipperApp : Application {
 	}
 }
 
-int main( char[][] argv ) {
+int main( char[][] args ) {
+	if ( args.length != 2 ) {
+		version (Tango)
+			Stdout.formatln( "Usage: {} <flash.(bin|hex)>", args[0] );
+		else
+			writefln( "Usage: %s <flash.(bin|hex)>", args[0] );
+		return 0;
+	}
 	
-	ClassInfo inf = FlipperApp.classinfo;
+	char[] program = args[1];
 	
-	FlipperApp app = cast(FlipperApp)inf.create( );
-	app.run( );
+	QuickFlipApp app = new QuickFlipApp( program );
+	
+	if ( !app.flipCompleted )
+		app.run( );
 	
 	DeviceManager.cleanup( );
-	
-	//Stdout.formatln( "Classinfo: {}",  );
-	
-	return 0;
-	
-	//auto app = new FlipperApp( );
-	//app.run( );
 	
 	return 0;
 }

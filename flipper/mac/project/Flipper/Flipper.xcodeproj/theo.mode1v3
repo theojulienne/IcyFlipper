@@ -267,13 +267,17 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
+								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>1C37FBAC04509CD000000102</string>
+								<string>E4EF30671106832600754FD7</string>
 								<string>1C37FAAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>6</integer>
+									<integer>4</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -325,15 +329,20 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>E40BDF4210E0C4AA00A12998</string>
+										<string>E4EF3073110699D400754FD7</string>
 										<key>history</key>
 										<array>
 											<string>E4BBC6A410D1C35A0041D385</string>
-											<string>E4BBC6A710D1C35A0041D385</string>
+											<string>E4EF30681106832600754FD7</string>
+											<string>E4EF306A1106832600754FD7</string>
+											<string>E4EF306B1106832600754FD7</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>E4BBC6A610D1C35A0041D385</string>
+											<string>E4EF306C1106832600754FD7</string>
+											<string>E4EF306D1106832600754FD7</string>
+											<string>E4EF306F1106832600754FD7</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -355,8 +364,6 @@
 							<string>457pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -393,9 +400,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>E40BDF3810E0525300A12998</string>
+				<string>E4EF3062110682B300754FD7</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>E40BDF3910E0525300A12998</string>
+				<string>E4EF3063110682B300754FD7</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -529,8 +536,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>E4BBC69010D1B60A0041D385</string>
 		<string>/Users/theo/Development/flipper/mac/project/Flipper/Flipper.xcodeproj</string>
 	</array>
@@ -612,7 +617,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>E4BBC69010D1B60A0041D385</string>
-				<string>E40BDF3A10E0525300A12998</string>
+				<string>E4EF30711106832600754FD7</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>

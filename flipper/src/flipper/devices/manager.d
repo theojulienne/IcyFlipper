@@ -3,7 +3,6 @@ module flipper.devices.manager;
 import chisel.core.all;
 import chisel.ui.all;
 
-import flipper.ui;
 import flipper.devices.imports;
 import flipper.devices.device;
 
@@ -12,6 +11,10 @@ version (Tango) {
 }
 
 import usb.all;
+
+interface FlipperDeviceNotify {
+	void deviceWillRemove( Device device );
+}
 
 class DeviceManager {
 	struct MatchUSB {
@@ -74,7 +77,7 @@ class DeviceManager {
 			}
 		}
 		
-		FlipperApp app = cast(FlipperApp)Application.sharedApplication;
+		FlipperDeviceNotify app = cast(FlipperDeviceNotify)Application.sharedApplication;
 		
 		foreach ( usbdev, flipdev; disconnectedDevices ) {
 			version (Tango) Stdout.formatln( "Disconnected device: {}", flipdev );

@@ -39,7 +39,7 @@ extern (C) void installDeviceClass( ) {
 	DeviceManager.addUSBDeviceMatch( matcher );
 }
 
-class PenguinoAVRDevice : Device {
+class PenguinoAVRDevice : Device, SimpleProgramming {
 	View _devicePanel;
 	
 	PenprogInterface penprog;
@@ -306,6 +306,11 @@ class PenguinoAVRDevice : Device {
 		
 		String path = paths[0];
 		
+		simpleProgramDevice( path.toString, uploadProgress, uploadStatus );
+		doFuseBits( );
+	}
+	
+	void simpleProgramDevice( char[] path, ProgressBar simpleUploadProgress, Label simpleUploadStatus ) {
 		version (Tango) {
 			version (Tango) Stdout.formatln( "Uploading: {}", path );
 		} else {
@@ -333,7 +338,7 @@ class PenguinoAVRDevice : Device {
 		} else {
 			int sourceBytes = file.size;
 		}*/
-		Program program = Program.load( path.toString );
+		Program program = Program.load( path );
 		
 		if ( program is null )
 			return;
@@ -342,34 +347,36 @@ class PenguinoAVRDevice : Device {
 		
 		//Stdout.newline;
 		//version (Tango) Stdout.format( "Erasing {0}...", uploadTarget ).newline;
-		uploadStatus.text = "Erasing " ~ uploadTarget ~ "...";
+		simpleUploadStatus.text = "Erasing " ~ uploadTarget ~ "...";
 		targetMemory.erase( );
 		
 		void reportOperationProgress( uint bytesCompleted ) {
 			if ( bytesCompleted > sourceBytes )
 				bytesCompleted = sourceBytes;
 			
-			uploadProgress.maxValue = sourceBytes;
-			uploadProgress.value = bytesCompleted;
+			simpleUploadProgress.maxValue = sourceBytes;
+			simpleUploadProgress.value = bytesCompleted;
 		}
 		
 		//Stdout.newline.newline;
 		//version (Tango) Stdout.format( "Writing {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
-		uploadStatus.text = "Writing " ~ uploadTarget ~ "...";
+		simpleUploadStatus.text = "Writing " ~ uploadTarget ~ "...";
 		targetMemory.writeStream( program, &reportOperationProgress );
 		
 		//Stdout.newline.newline;
 		//version (Tango) Stdout.format( "Verifying {0}...", uploadTarget ).newline;
 		//Stdout( " ~ starting ~ " );
-		uploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
+		simpleUploadStatus.text = "Verifying " ~ uploadTarget ~ "...";
 		targetMemory.verifyStream( program, &reportOperationProgress );
 		
+		targetMemory.finished( );
+	}
+	
+	void doFuseBits( ) {
 		uploadStatus.text = "Preparing for post-flashing...";
 		uploadProgress.indeterminate = true;
 		uploadProgress.animating = true;
-		
-		targetMemory.finished( );
 		
 		AVRChip chip = cast(AVRChip)chips["user"];
 		

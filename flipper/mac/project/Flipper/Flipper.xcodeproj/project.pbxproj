@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		E4BBC69F10D1B7850041D385 /* flipper in CopyFiles */ = {isa = PBXBuildFile; fileRef = E4BBC69E10D1B7850041D385 /* flipper */; };
+		E4EF3065110682E700754FD7 /* Flipper.icns in Resources */ = {isa = PBXBuildFile; fileRef = E4EF3064110682E700754FD7 /* Flipper.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Flipper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flipper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4BBC69E10D1B7850041D385 /* flipper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = flipper; path = ../../../flipper; sourceTree = SOURCE_ROOT; };
+		E4EF3064110682E700754FD7 /* Flipper.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Flipper.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -92,6 +94,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E4EF3064110682E700754FD7 /* Flipper.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 			);
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				E4EF3065110682E700754FD7 /* Flipper.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

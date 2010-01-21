@@ -28,3 +28,7 @@ class Device {
 		return "Unknown Device";
 	}
 }
+
+interface SimpleProgramming {
+	void simpleProgramDevice( char[] path, ProgressBar uploadProgress, Label uploadStatus );
+}

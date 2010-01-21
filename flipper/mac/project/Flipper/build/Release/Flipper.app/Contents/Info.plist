@@ -6,6 +6,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>flipper</string>
+	<key>CFBundleIconFile</key>
+	<string>Flipper</string>
 	<key>CFBundleIdentifier</key>
 	<string>au.com.icy.Flipper</string>
 	<key>CFBundleInfoDictionaryVersion</key>

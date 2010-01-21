@@ -77,14 +77,19 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 283136576;
-			PBXWorkspaceStateSaveDate = 283136576;
+			PBXPerProjectTemplateStateSaveDate = 285639343;
+			PBXWorkspaceStateSaveDate = 285639343;
 		};
 		perUserProjectItems = {
-			E40BDF4210E0C4AA00A12998 /* PlistBookmark */ = E40BDF4210E0C4AA00A12998 /* PlistBookmark */;
 			E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A410D1C35A0041D385 /* PBXTextBookmark */;
 			E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */ = E4BBC6A610D1C35A0041D385 /* PBXTextBookmark */;
-			E4BBC6A710D1C35A0041D385 /* PlistBookmark */ = E4BBC6A710D1C35A0041D385 /* PlistBookmark */;
+			E4EF30681106832600754FD7 /* PBXBookmark */ = E4EF30681106832600754FD7 /* PBXBookmark */;
+			E4EF306A1106832600754FD7 /* PBXBookmark */ = E4EF306A1106832600754FD7 /* PBXBookmark */;
+			E4EF306B1106832600754FD7 /* PlistBookmark */ = E4EF306B1106832600754FD7 /* PlistBookmark */;
+			E4EF306C1106832600754FD7 /* PlistBookmark */ = E4EF306C1106832600754FD7 /* PlistBookmark */;
+			E4EF306D1106832600754FD7 /* PBXBookmark */ = E4EF306D1106832600754FD7 /* PBXBookmark */;
+			E4EF306F1106832600754FD7 /* PBXBookmark */ = E4EF306F1106832600754FD7 /* PBXBookmark */;
+			E4EF3073110699D400754FD7 /* PlistBookmark */ = E4EF3073110699D400754FD7 /* PlistBookmark */;
 		};
 		sourceControlManager = E4BBC68110D1B5D70041D385 /* Source Control */;
 		userBuildSettings = {
@@ -95,17 +100,6 @@
 		executables = (
 			E4BBC67510D1B5CC0041D385 /* Flipper */,
 		);
-	};
-	E40BDF4210E0C4AA00A12998 /* PlistBookmark */ = {
-		isa = PlistBookmark;
-		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
-		fallbackIsa = PBXBookmark;
-		isK = 0;
-		kPath = (
-		);
-		name = /Users/theo/Development/flipper/mac/project/Flipper/Info.plist;
-		rLen = 0;
-		rLoc = 2147483647;
 	};
 	E4BBC67510D1B5CC0041D385 /* Flipper */ = {
 		isa = PBXExecutable;
@@ -162,7 +156,57 @@
 		vrLen = 45;
 		vrLoc = 0;
 	};
-	E4BBC6A710D1C35A0041D385 /* PlistBookmark */ = {
+	E4EF30681106832600754FD7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E4EF30691106832600754FD7 /* Flipper.icns */;
+	};
+	E4EF30691106832600754FD7 /* Flipper.icns */ = {
+		isa = PBXFileReference;
+		name = Flipper.icns;
+		path = "/var/folders/nF/nFJPjRcEEMeVEfax1j0YGE+++TI/-Tmp-/com.apple.mail.drag/Flipper.icns";
+		sourceTree = "<absolute>";
+	};
+	E4EF306A1106832600754FD7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E4EF3064110682E700754FD7 /* Flipper.icns */;
+	};
+	E4EF306B1106832600754FD7 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/theo/Development/flipper/mac/project/Flipper/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	E4EF306C1106832600754FD7 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/theo/Development/flipper/mac/project/Flipper/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	E4EF306D1106832600754FD7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E4EF306E1106832600754FD7 /* Flipper.icns */;
+	};
+	E4EF306E1106832600754FD7 /* Flipper.icns */ = {
+		isa = PBXFileReference;
+		name = Flipper.icns;
+		path = "/var/folders/nF/nFJPjRcEEMeVEfax1j0YGE+++TI/-Tmp-/com.apple.mail.drag/Flipper.icns";
+		sourceTree = "<absolute>";
+	};
+	E4EF306F1106832600754FD7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = E4EF3064110682E700754FD7 /* Flipper.icns */;
+	};
+	E4EF3073110699D400754FD7 /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
 		fallbackIsa = PBXBookmark;
