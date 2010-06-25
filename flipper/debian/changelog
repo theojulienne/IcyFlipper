@@ -1,3 +1,9 @@
+flipper (0.1.2) karmic; urgency=low
+
+  * Latest upstream, mainly adding "flip" binary
+
+ -- Theo Julienne <theo@icy.com.au>  Fri, 25 Jun 2010 12:25:43 +1000
+
 flipper (0.1) unstable; urgency=low
 
   * Initial Release.
