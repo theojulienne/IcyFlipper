@@ -2,8 +2,8 @@ module flipper.devices.penguinoavr.device;
 
 version (Tango) {
 	import tango.io.Stdout;
-	import tango.io.device.File;
-	import tango.io.device.Conduit;
+	import tango.io.FileConduit;
+	import tango.io.Conduit;
 } else {
 	import std.stdio;
 	import std.stream;

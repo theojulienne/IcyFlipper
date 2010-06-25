@@ -1,9 +1,9 @@
 module flipper.memory;
 
 version (Tango) {
-	import tango.io.device.File;
-	import tango.io.device.Conduit;
-	import tango.io.stream.Buffered;
+	import tango.io.FileConduit;
+	import tango.io.Conduit;
+	import tango.io.stream.BufferStream;
 } else {
 	import std.stream;
 	import std.stdio;

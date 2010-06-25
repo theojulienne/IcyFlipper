@@ -1,9 +1,9 @@
 module flipper.program;
 
-import tango.io.device.File;
-import tango.io.device.Conduit;
-import tango.io.stream.Buffered;
-import tango.io.stream.Text;
+import tango.io.File;
+import tango.io.Conduit;
+import tango.io.stream.BufferStream;
+import tango.io.stream.TextFileStream;
 import Integer = tango.text.convert.Integer;
 
 import tango.io.Stdout;
@@ -61,11 +61,12 @@ class Program {
 	}
 	
 	static Program loadFileBinary( char[] filename ) {
-		return new Program( 0, cast(ubyte[])File.get( filename ) );
+		File f = new File(filename);
+		return new Program( 0, cast(ubyte[])f.read() );
 	}
 	
 	static Program loadFileIHex( char[] filename ) {
-		auto lines = new TextInput( new File( filename ) );
+		auto lines = new TextFileInput( filename );
 		
 		int offset = -1;
 		
