@@ -13,7 +13,11 @@ public class FlipperApp {
 	private Label statusBar;
 	
 	
-	private FlipperApp( Display display ) {
+	private FlipperApp( ) {
+		
+	}
+	
+	public Shell open( Display display ) {
 		// create new window
 		shell = new Shell( display );
 
@@ -33,11 +37,9 @@ public class FlipperApp {
 		shell.pack( );
 		shell.setSize( 640, 480 );
 
-		shell.open( );
-	}
-	
-	public boolean isDisposed( ) {
-		return shell.isDisposed( );
+		shell.open( );	
+		
+		return shell;
 	}
 	
 	private void clearDeviceInfo( ) {
@@ -130,10 +132,12 @@ public class FlipperApp {
 		
 		Display display = new Display( );
 
-		FlipperApp app = new FlipperApp( display );
+		FlipperApp app = new FlipperApp( );
+		
+		Shell shell = app.open( display );
 		
 		// main loop
-		while ( !app.isDisposed( ) ) {
+		while ( !shell.isDisposed( ) ) {
 			// while main window is open
 			
 			if ( !display.readAndDispatch( ) ) {
