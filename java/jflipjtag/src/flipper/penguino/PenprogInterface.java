@@ -75,16 +75,6 @@ public class PenprogInterface implements IJTAGDevice {
 		
 		bulkWriteSafe( jtagBulkOut, bytes );
 		bulkReadSafe( jtagBulkIn, bytes );
-		
-		/*while ( (ret = device.bulkWrite( jtagBulkOut, bytes )) != bytes.length ) {
-			System.out.println( "RST: USB Bulk Write failed (" + ret + "), retrying... " );
-			//System.Threading.Thread.Sleep( 100 );
-		}
-		
-		while ( (ret = device.bulkRead( jtagBulkIn, bytes )) != bytes.length ) {
-			System.out.println( "RST: USB Bulk Read failed (" + ret + "), retrying... " );
-			//System.Threading.Thread.Sleep( 100 );
-		}*/
 	}
 	
 	// usb msg = 32 bytes, 2 instruction bytes, then 4 bits per byte
@@ -228,10 +218,5 @@ public class PenprogInterface implements IJTAGDevice {
 		bytes[0] = jtagCommandJumpBootloader;
 		
 		bulkWriteSafe( jtagBulkOut, bytes );
-		/*
-		while ( (ret = device.bulkWrite( jtagBulkOut, bytes )) != bytes.length ) {
-			System.out.println( "RST: USB Bulk Write failed (" + ret + "), retrying... " );
-		}
-		*/
 	}
 }
