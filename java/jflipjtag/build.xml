@@ -3,6 +3,7 @@
 	<property name="src" location="src"/>
 	<property name="build" location="build"/>
 	<property name="dist" location="dist"/>
+	<property name="dir.javadocs" location="api"/>
 	
 	<property name="libs" location="lib/libusb4j.jar:lib/jna.jar:lib/ch.ntb.usb.jar:lib/osx/libusbJava.jnilib" />
 
@@ -40,5 +41,20 @@
 	
 	<target name="run" depends="dist">
 		<java jar="${dist}/jflipjtag.jar" fork="true" classpath="${libs}" />
+	</target>
+	
+	<target name="javadocs" depends="compile">
+		<mkdir dir="${dir.javadocs}"/>
+		
+		<javadoc packagenames="flipper.*"
+	             sourcepath="${src}"
+	             destdir="${dir.javadocs}"
+	             classpath="${src}"
+	             author="true"
+	             version="true"
+	             use="true"
+	             windowtitle="Penguino JTAG API"
+	             doctitle="&lt;h1&gt;${app.name}&lt;/h1&gt;" />
+
 	</target>
 </project>
